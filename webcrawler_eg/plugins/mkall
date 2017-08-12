@@ -1,0 +1,18 @@
+#!/bin/bash
+
+make -f MaxDepth.mak clean
+make -f MaxDepth.mak
+
+make -f DomainLimit.mak clean
+make -f DomainLimit.mak
+
+make -f HeaderFilter.mak clean
+make -f HeaderFilter.mak
+
+make -f SaveHTMLToFile.mak clean
+make -f SaveHTMLToFile.mak
+
+make -f SaveImageToFile.mak clean
+make -f SaveImageToFile.mak
+
+exit 0
