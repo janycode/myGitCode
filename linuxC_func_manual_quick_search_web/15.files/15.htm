@@ -1,0 +1,145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0063)http://man/develop/c&c++/linux_c/function/15.html -->
+<HTML><HEAD><TITLE>Untitled Document</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gb2312">
+<META content="MSHTML 6.00.2900.2180" name=GENERATOR></HEAD>
+<BODY><A href="http://man/">&lt;&lt; Back to man 
+</A><BR><BR>
+<TABLE width="100%">
+  <TBODY>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc289></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR>getenv（取得环境变量内容） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>putenv，setenv，unsetenv<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#include&lt;stdlib.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>char * getenv(const char *name);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>getenv()用来取得参数name环境变量的内容。参数name为环境变量的名称，如果该变量存在则会返回指向该内容的指针。环境变量的格式为name＝value。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+  size=2>执行成功则返回指向该内容的指针，找不到符合的环境变量名称则返回NULL。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#include&lt;stdlib.h&gt;<BR>mian()<BR>{<BR>char 
+      *p;<BR>if((p = 
+    getenv(“USER”)))<BR>printf(“USER=%s\n”,p);<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>USER = root<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc290></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR>putenv（改变或增加环境变量） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>getenv，setenv，unsetenv<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#include4&lt;stdlib.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>int putenv(const char * string);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>putenv()用来改变或增加环境变量的内容。参数string的格式为name＝value，如果该环境变量原先存在，则变量内容会依参数string改变，否则此参数内容会成为新的环境变量。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>执行成功则返回0，有错误发生则返回-1。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>错误代码 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>ENOMEM 内存不足，无法配置新的环境变量空间。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#include&lt;stdlib.h&gt;<BR>main()<BR>{<BR>char 
+      *p;<BR>if((p = getenv(“USER”)))<BR>printf(“USER 
+      =%s\n”,p);<BR>putenv(“USER=test”);<BR>printf(“USER+5s\n”,getenv(“USER”));<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>USER=root<BR>USER=root<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc291></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR>setenv（改变或增加环境变量） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>getenv，putenv，unsetenv<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#include&lt;stdlib.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>int setenv(const char *name,const char * 
+      value,int overwrite);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>setenv()用来改变或增加环境变量的内容。参数name为环境变量名称字符串。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>参数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>value则为变量内容，参数overwrite用来决定是否要改变已存在的环境变量。如果overwrite不为0，而该环境变量原已有内容，则原内容会被改为参数value所指的变量内容。如果overwrite为0，且该环境变量已有内容，则参数value会被忽略。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>执行成功则返回0，有错误发生时返回-1。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>错误代码 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>ENOMEM 内存不足，无法配置新的环境变量空间<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#include&lt;stdlib.h&gt;<BR>main()<BR>{<BR>char * 
+      p;<BR>if((p=getenv(“USER”)))<BR>printf(“USER 
+      =%s\n”,p);<BR>setenv(“USER”,”test”,1);<BR>printf(“USER=%s\n”,getenv(“USEr”));<BR>unsetenv(“USER”);<BR>printf(“USER=%s\n”,getenv(“USER”));<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>USER = root<BR>USER = test<BR>USER = 
+      (null)<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR></DIV></TD></TR></TBODY></TABLE></BODY></HTML>

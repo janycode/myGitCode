@@ -1,0 +1,839 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0063)http://man/develop/c&c++/linux_c/function/13.html -->
+<HTML><HEAD><TITLE>Untitled Document</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gb2312">
+<META content="MSHTML 6.00.2900.2180" name=GENERATOR></HEAD>
+<BODY><A href="http://man/">&lt;&lt; Back to man 
+</A><BR><BR>
+<TABLE width="100%">
+  <TBODY>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc242></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR>alarm（设置信号传送闹钟） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>signal，sleep<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#include&lt;unistd.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>unsigned int alarm(unsigned int 
+      seconds);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>alarm()用来设置信号SIGALRM在经过参数seconds指定的秒数后传送给目前的进程。如果参数seconds 
+      为0，则之前设置的闹钟会被取消，并将剩下的时间返回。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>返回之前闹钟的剩余秒数，如果之前未设闹钟则返回0。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>#include&lt;unistd.h&gt;<BR>#include&lt;signal.h&gt;<BR>void 
+      handler() {<BR>printf(“hello\n”);<BR>}<BR>main()<BR>{<BR>int 
+      i;<BR>signal(SIGALRM,handler);<BR>alarm(5);<BR>for(i=1;i&lt;7;i++){<BR>printf(“sleep 
+      %d ...\n”,i);<BR>sleep(1);<BR>}<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>sleep 1 ...<BR>sleep 2 ...<BR>sleep 3 
+      ...<BR>sleep 4 ...<BR>sleep 5 ...<BR>hello<BR>sleep 6 ...<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc243></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR>kill（传送信号给指定的进程） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>raise，signal<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>#include&lt;sys/types.h&gt;<BR>#include&lt;signal.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>int kill(pid_t pid,int sig);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>kill()可以用来送参数sig指定的信号给参数pid指定的进程。参数pid有几种情况:<BR>pid&gt;0 
+      将信号传给进程识别码为pid 的进程。<BR>pid=0 将信号传给和目前进程相同进程组的所有进程<BR>pid=-1 
+      将信号广播传送给系统内所有的进程<BR>pid&lt;0 
+      将信号传给进程组识别码为pid绝对值的所有进程<BR>参数sig代表的信号编号可参考附录D<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>执行成功则返回0，如果有错误则返回-1。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>错误代码 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>EINVAL 参数sig 不合法<BR>ESRCH 参数pid 
+      所指定的进程或进程组不存在<BR>EPERM 权限不够无法传送信号给指定进程<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>#include&lt;unistd.h&gt;<BR>#include&lt;signal.h&gt;<BR>#include&lt;sys/types.h&gt;<BR>#include&lt;sys/wait.h&gt;<BR>main()<BR>{<BR>pid_t 
+      pid;<BR>int status;<BR>if(!(pid= fork())){<BR>printf(“Hi I am child 
+      process!\n”);<BR>sleep(10);<BR>return;<BR>}<BR>else{<BR>printf(“send 
+      signal to child process (%d) \n”,pid);<BR>sleep(1);<BR>kill(pid 
+      ,SIGABRT);<BR>wait(&amp;status);<BR>if(WIFSIGNALED(status))<BR>printf(“chile 
+      process receive signal %d\n”,WTERMSIG(status));<BR>}<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>sen signal to child process(3170)<BR>Hi I am 
+      child process!<BR>child process receive signal 6<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc244></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR>pause（让进程暂停直到信号出现） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>kill，signal，sleep<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#include&lt;unistd.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>int pause(void);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>pause()会令目前的进程暂停（进入睡眠状态），直到被信号(signal)所中断。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>只返回-1。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>错误代码 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>EINTR 有信号到达中断了此函数。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc245></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR>sigaction（查询或设置信号处理方式） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>signal，sigprocmask，sigpending，sigsuspend<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#include&lt;signal.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>int sigaction(int signum,const struct sigaction 
+      *act ,struct sigaction *oldact);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>sigaction()会依参数signum指定的信号编号来设置该信号的处理函数。参数signum可以指定SIGKILL和SIGSTOP以外的所有信号。<BR>如参数结构sigaction定义如下<BR>struct 
+      sigaction<BR>{<BR>void (*sa_handler) (int);<BR>sigset_t sa_mask;<BR>int 
+      sa_flags;<BR>void (*sa_restorer) 
+      (void);<BR>}<BR>sa_handler此参数和signal()的参数handler相同，代表新的信号处理函数，其他意义请参考signal()。<BR>sa_mask 
+      用来设置在处理该信号时暂时将sa_mask 指定的信号搁置。<BR>sa_restorer 此参数没有使用。<BR>sa_flags 
+      用来设置信号处理的其他相关操作，下列的数值可用。<BR>OR 运算（|）组合<BR>A_NOCLDSTOP : 
+      如果参数signum为SIGCHLD，则当子进程暂停时并不会通知父进程<BR>SA_ONESHOT/SA_RESETHAND:当调用新的信号处理函数前，将此信号处理方式改为系统预设的方式。<BR>SA_RESTART:被信号中断的系统调用会自行重启<BR>SA_NOMASK/SA_NODEFER:在处理此信号未结束前不理会此信号的再次到来。<BR>如果参数oldact不是NULL指针，则原来的信号处理方式会由此结构sigaction 
+      返回。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>执行成功则返回0，如果有错误则返回-1。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>错误代码 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>EINVAL 参数signum 不合法， 
+      或是企图拦截SIGKILL/SIGSTOPSIGKILL信号<BR>EFAULT 参数act，oldact指针地址无法存取。<BR>EINTR 
+      此调用被中断<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>#include&lt;unistd.h&gt;<BR>#include&lt;signal.h&gt;<BR>void 
+      show_handler(struct sigaction * act)<BR>{<BR>switch 
+      (act-&gt;sa_flags)<BR>{<BR>case SIG_DFL:printf(“Default 
+      action\n”);break;<BR>case SIG_IGN:printf(“Ignore the 
+      signal\n”);break;<BR>default: 
+      printf(“0x%x\n”,act-&gt;sa_handler);<BR>}<BR>}<BR>main()<BR>{<BR>int 
+      i;<BR>struct sigaction act,oldact;<BR>act.sa_handler = 
+      show_handler;<BR>act.sa_flags = 
+      SA_ONESHOT|SA_NOMASK;<BR>sigaction(SIGUSR1,&amp;act,&amp;oldact);<BR>for(i=5;i&lt;15;i++)<BR>{<BR>printf(“sa_handler 
+      of signal %2d 
+    =”.i);<BR>sigaction(i,NULL,&amp;oldact);<BR>}<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>sa_handler of signal 5 = Default 
+      action<BR>sa_handler of signal 6= Default action<BR>sa_handler of signal 7 
+      = Default action<BR>sa_handler of signal 8 = Default action<BR>sa_handler 
+      of signal 9 = Default action<BR>sa_handler of signal 10 = 
+      0x8048400<BR>sa_handler of signal 11 = Default action<BR>sa_handler of 
+      signal 12 = Default action<BR>sa_handler of signal 13 = Default 
+      action<BR>sa_handler of signal 14 = Default action<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc246></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR>sigaddset（增加一个信号至信号集） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>sigemptyset，sigfillset，sigdelset，sigismember<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#include&lt;signal.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>int sigaddset(sigset_t *set,int 
+      signum);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>sigaddset()用来将参数signum 代表的信号加入至参数set 
+      信号集里。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>执行成功则返回0，如果有错误则返回-1。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>错误代码 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>EFAULT 参数set指针地址无法存取<BR>EINVAL 
+      参数signum非合法的信号编号<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc247></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR>sigdelset（从信号集里删除一个信号） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>sigemptyset，sigfillset，sigaddset，sigismember<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#include&lt;signal.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>int sigdelset(sigset_t * set,int 
+      signum);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>sigdelset()用来将参数signum代表的信号从参数set信号集里删除。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>执行成功则返回0，如果有错误则返回-1。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>错误代码 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>EFAULT 参数set指针地址无法存取<BR>EINVAL 
+      参数signum非合法的信号编号<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc248></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR>sigemptyset（初始化信号集） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>sigaddset，sigfillset，sigdelset，sigismember<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#include&lt;signal.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>int sigemptyset(sigset_t *set);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>sigemptyset()用来将参数set信号集初始化并清空。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>执行成功则返回0，如果有错误则返回-1。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>错误代码 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>EFAULT 参数set指针地址无法存取<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc249></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR>sigfillset（将所有信号加入至信号集） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>sigempty，sigaddset，sigdelset，sigismember<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#include&lt;signal.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>int sigfillset(sigset_t * set);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>sigfillset()用来将参数set信号集初始化，然后把所有的信号加入到此信号集里。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>执行成功则返回0，如果有错误则返回-1。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>附加说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>EFAULT 参数set指针地址无法存取<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc250></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR>sigismember（测试某个信号是否已加入至信号集里） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>sigemptyset，sigfillset，sigaddset，sigdelset<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#include&lt;signal.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>int sigismember(const sigset_t *set,int 
+      signum);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>sigismember()用来测试参数signum 
+      代表的信号是否已加入至参数set信号集里。如果信号集里已有该信号则返回1，否则返回0。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>信号集已有该信号则返回1，没有则返回0。如果有错误则返回-1。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>错误代码 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>EFAULT 参数set指针地址无法存取<BR>EINVAL 参数signum 
+      非合法的信号编号<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc251></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR>signal（设置信号处理方式） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>sigaction，kill，raise<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#include&lt;signal.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>void (*signal(int signum,void(* 
+      handler)(int)))(int);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>signal()会依参数signum 
+      指定的信号编号来设置该信号的处理函数。当指定的信号到达时就会跳转到参数handler指定的函数执行。如果参数handler不是函数指针，则必须是下列两个常数之一:<BR>SIG_IGN 
+      忽略参数signum指定的信号。<BR>SIG_DFL 将参数signum 
+      指定的信号重设为核心预设的信号处理方式。<BR>关于信号的编号和说明，请参考附录D<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+  size=2>返回先前的信号处理函数指针，如果有错误则返回SIG_ERR(-1)。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>附加说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>在信号发生跳转到自定的handler处理函数执行后，系统会自动将此处理函数换回原来系统预设的处理方式，如果要改变此操作请改用sigaction()。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>参考alarm()或raise()。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc252></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR>sigpending（查询被搁置的信号） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+    size=2>signal，sigaction，sigprocmask，sigsuspend<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#include&lt;signal.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>int sigpending(sigset_t *set);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+size=2>sigpending()会将被搁置的信号集合由参数set指针返回。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值执 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>行成功则返回0，如果有错误则返回-1。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>错误代码 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>EFAULT 参数set指针地址无法存取<BR>EINTR 
+    此调用被中断。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc253></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR>sigprocmask（查询或设置信号遮罩） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+    size=2>signal，sigaction，sigpending，sigsuspend<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#include&lt;signal.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>int sigprocmask(int how,const sigset_t 
+      *set,sigset_t * oldset);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>sigprocmask()可以用来改变目前的信号遮罩，其操作依参数how来决定<BR>SIG_BLOCK 
+      新的信号遮罩由目前的信号遮罩和参数set 指定的信号遮罩作联集<BR>SIG_UNBLOCK 
+      将目前的信号遮罩删除掉参数set指定的信号遮罩<BR>SIG_SETMASK 
+      将目前的信号遮罩设成参数set指定的信号遮罩。<BR>如果参数oldset不是NULL指针，那么目前的信号遮罩会由此指针返回。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>执行成功则返回0，如果有错误则返回-1。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>错误代码 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>EFAULT 参数set，oldset指针地址无法存取。<BR>EINTR 
+      此调用被中断<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc254></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR>sleep（让进程暂停执行一段时间） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>signal，alarm<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#include&lt;unistd.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>unsigned int sleep(unsigned int 
+      seconds);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>sleep()会令目前的进程暂停，直到达到参数seconds 
+      所指定的时间，或是被信号所中断。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>若进程暂停到参数seconds 
+      所指定的时间则返回0，若有信号中断则返回剩余秒数。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc255></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR>ferror（检查文件流是否有错误发生） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>clearerr，perror<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#include&lt;stdio.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>int ferror(FILE *stream);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>ferror()用来检查参数stream所指定的文件流是否发生了错误情况，如有错误发生则返回非0值。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>如果文件流有错误发生则返回非0值。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc256></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR>perror（打印出错误原因信息字符串） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>strerror<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#include&lt;stdio.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>void perror(const char *s);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>perror()用来将上一个函数发生错误的原因输出到标准错误(stderr)。参数s所指的字符串会先打印出，后面再加上错误原因字符串。此错误原因依照全局变量errno的值来决定要输出的字符串。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#include&lt;stdio.h&gt;<BR>main()<BR>{<BR>FILE 
+      *fp;<BR>fp = fopen(“/tmp/noexist”,”r+”);<BR>if(fp = =NULL) 
+      perror(“fopen”);<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>$ ./perror<BR>fopen : No such file or 
+      diretory<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc257></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR>strerror（返回错误原因的描述字符串） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>perror<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#include&lt;string.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>char * strerror(int errnum);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>strerror()用来依参数errnum的错误代码来查询其错误原因的描述字符串，然后将该字符串指针返回。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>返回描述错误原因的字符串指针。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>/* 显示错误代码0 至9 
+      的错误原因描述*/<BR>#include&lt;string.h&gt;<BR>main()<BR>{<BR>int 
+      i;<BR>for(i=0;i&lt;10;i++)<BR>printf(“%d : 
+      %s\n”,i,strerror(i));<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>0 : Success<BR>1 : Operation not permitted<BR>2 : 
+      No such file or directory<BR>3 : No such process<BR>4 : Interrupted system 
+      call<BR>5 : Input/output error<BR>6 : Device not configured<BR>7 : 
+      Argument list too long<BR>8 : Exec format error<BR>9 : Bad file 
+      descriptor<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc258></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR>mkfifo（建立具名管道） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>pipe，popen，open，umask<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>#include&lt;sys/types.h&gt;<BR>#include&lt;sys/stat.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>int mkfifo(const char * pathname,mode_t 
+      mode);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>mkfifo()会依参数pathname建立特殊的FIFO文件，该文件必须不存在，而参数mode为该文件的权限（mode%~umask），因此umask值也会影响到FIFO文件的权限。Mkfifo()建立的FIFO文件其他进程都可以用读写一般文件的方式存取。当使用open()来打开FIFO文件时，O_NONBLOCK旗标会有影响<BR>1、当使用O_NONBLOCK 
+      旗标时，打开FIFO 文件来读取的操作会立刻返回，但是若还没有其他进程打开FIFO 文件来读取，则写入的操作会返回ENXIO 
+      错误代码。<BR>2、没有使用O_NONBLOCK 旗标时，打开FIFO 
+      来读取的操作会等到其他进程打开FIFO文件来写入才正常返回。同样地，打开FIFO文件来写入的操作会等到其他进程打开FIFO 
+      文件来读取后才正常返回。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>若成功则返回0，否则返回-1，错误原因存于errno中。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>错误代码 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>EACCESS 参数pathname所指定的目录路径无可执行的权限<BR>EEXIST 
+      参数pathname所指定的文件已存在。<BR>ENAMETOOLONG 参数pathname的路径名称太长。<BR>ENOENT 
+      参数pathname包含的目录不存在<BR>ENOSPC 文件系统的剩余空间不足<BR>ENOTDIR 
+      参数pathname路径中的目录存在但却非真正的目录。<BR>EROFS 
+    参数pathname指定的文件存在于只读文件系统内。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>#include&lt;sys/types.h&gt;<BR>#include&lt;sys/stat.h&gt;<BR>#include&lt;fcntl.h&gt;<BR>main()<BR>{<BR>char 
+      buffer[80];<BR>int 
+      fd;<BR>unlink(FIFO);<BR>mkfifo(FIFO,0666);<BR>if(fork()&gt;0){<BR>char s[ 
+      ] = “hello!\n”;<BR>fd = open 
+      (FIFO,O_WRONLY);<BR>write(fd,s,sizeof(s));<BR>close(fd);<BR>}<BR>else{<BR>fd= 
+      open(FIFO,O_RDONLY);<BR>read(fd,buffer,80);<BR>printf(“%s”,buffer);<BR>close(fd);<BR>}<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>hello!<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc259></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR>pclose（关闭管道I/O） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>popen<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#include&lt;stdio.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>int pclose(FILE * stream);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>pclose()用来关闭由popen所建立的管道及文件指针。参数stream为先前由popen()所返回的文件指针。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+  size=2>返回子进程的结束状态。如果有错误则返回-1，错误原因存于errno中。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>错误代码 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>ECHILD pclose()无法取得子进程的结束状态。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>参考popen()。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc260></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR>pipe（建立管道） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>mkfifo，popen，read，write，fork<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#include&lt;unistd.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>int pipe(int filedes[2]);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>pipe()会建立管道，并将文件描述词由参数filedes数组返回。filedes[0]为管道里的读取端，filedes[1]则为管道的写入端。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>若成功则返回零，否则返回-1，错误原因存于errno中。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>错误代码 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>EMFILE 进程已用完文件描述词最大量。<BR>ENFILE 
+      系统已无文件描述词可用。<BR>EFAULT 参数filedes数组地址不合法。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>/* 父进程借管道将字符串“hello!\n”传给子进程并显示*/<BR>#include 
+      &lt;unistd.h&gt;<BR>main()<BR>{<BR>int filedes[2];<BR>char 
+      buffer[80];<BR>pipe(filedes);<BR>if(fork()&gt;0){<BR>/* 父进程*/<BR>char s[ ] 
+      = 
+      “hello!\n”;<BR>write(filedes[1],s,sizeof(s));<BR>}<BR>else{<BR>/*子进程*/<BR>read(filedes[0],buffer,80);<BR>printf(“%s”,buffer);<BR>}<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>hello!<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc261></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR>popen（建立管道I/O） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+  size=2>pipe，mkfifo，pclose，fork，system，fopen<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#include&lt;stdio.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>FILE * popen( const char * command,const char * 
+      type);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>popen()会调用fork()产生子进程，然后从子进程中调用/bin/sh 
+      -c来执行参数command的指令。参数type可使用“r”代表读取，“w”代表写入。依照此type值，popen()会建立管道连到子进程的标准输出设备或标准输入设备，然后返回一个文件指针。随后进程便可利用此文件指针来读取子进程的输出设备或是写入到子进程的标准输入设备中。此外，所有使用文件指针(FILE*)操作的函数也都可以使用，除了fclose()以外。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+size=2>若成功则返回文件指针，否则返回NULL，错误原因存于errno中。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>错误代码 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>EINVAL参数type不合法。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>注意事项 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>在编写具SUID/SGID权限的程序时请尽量避免使用popen()，popen()会继承环境变量，通过环境变量可能会造成系统安全的问题。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#include&lt;stdio.h&gt;<BR>main()<BR>{<BR>FILE * 
+      fp;<BR>char buffer[80];<BR>fp=popen(“cat 
+      /etc/passwd”,”r”);<BR>fgets(buffer,sizeof(buffer),fp);<BR>printf(“%s”,buffer);<BR>pclose(fp);<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>root :x:0 0: root: /root: 
+  /bin/bash<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR></DIV></TD></TR></TBODY></TABLE></BODY></HTML>

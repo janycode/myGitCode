@@ -1,0 +1,900 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0063)http://man/develop/c&c++/linux_c/function/06.html -->
+<HTML><HEAD><TITLE>Untitled Document</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gb2312">
+<META content="MSHTML 6.00.2900.2180" name=GENERATOR></HEAD>
+<BODY><A href="http://man/">&lt;&lt; Back to man 
+</A><BR><BR>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc70></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2><BR>abs（计算整型数的绝对值） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>labs, fabs<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+  size=2>#include&lt;stdlib.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>int abs (int j)<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+  size=2>abs()用来计算参数j的绝对值，然后将结果返回。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>返回参数j的绝对值结果。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>#ingclude 
+      &lt;stdlib.h&gt;<BR>main(){<BR>int ansert;<BR>answer = 
+      abs(-12);<BR>printf("|-12| = %d\n", answer);<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>|-12| = 12<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc71></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2><BR>acos（取反余弦函数数值） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>asin , atan , atan2 , cos , sin , 
+      tan<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>#include 
+  &lt;math.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>double acos (double 
+  x);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>acos()用来计算参数x的反余弦值，然后将结果返回。参数x范围为－1至1之间，超过此范围则会失败。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>返回0至PI之间的计算结果，单位为弧度，在函数库中角度均以弧度来表示。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>错误代码 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>EDOM参数x超出范围。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>附加说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>使用GCC编译时请加入－lm。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>#include &lt;math.h&gt;<BR>main 
+      (){<BR>double angle;<BR>angle = acos(0.5);<BR>printf("angle = %f\n", 
+      angle);<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>angle = 1.047198<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc72></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2><BR>asin（取反正弦函数值） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>acos , atan , atan2 , cos , sin , 
+      tan<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>#include 
+  &lt;math.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>double asin (double 
+x)<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>asin()用来计算参数x的反正弦值，然后将结果返回。参数x范围为－1至1之间，超过此范围则会失败。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>返回－PI/2之PI/2之间的计算结果。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>错误代码 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>EDOM参数x超出范围<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>附加说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>使用GCC编译时请加入－lm<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>#include&lt;math.h&gt;<BR>main()<BR>{<BR>double angle;<BR>angle = 
+      asin (0.5);<BR>printf("angle = %f\n",angle);<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>angle = 0.523599<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc73></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2><BR>atan（取反正切函数值） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+    size=2>acos，asin，atan2，cos，sin，tan<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+size=2>#include&lt;math.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>double atan(double 
+x);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+    size=2>atan()用来计算参数x的反正切值，然后将结果返回。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>返回-PI/2至PI/2之间的计算结果。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>附加说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>使用GCC编译时请加入-lm<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>#include&lt;math.h&gt;<BR>main()<BR>{<BR>double angle;<BR>angle 
+      =atan(1);<BR>printf("angle = %f\n",angle);<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>angle = 1.570796<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc74></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2><BR>atan2（取得反正切函数值） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+    size=2>acos，asin，atan，cos，sin，tan<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+size=2>#include&lt;math.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>double atan2(double y,double 
+      x);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>atan2()用来计算参数y/x的反正切值，然后将结果返回。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>返回-PI/2 至PI/2 
+之间的计算结果。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>附加说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>使用GCC编译时请加入-lm。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>#include&lt;math.h&gt;<BR>main()<BR>{<BR>double angle;<BR>angle = 
+      atan2(1,2);<BR>printf("angle = %f\n", angle);<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>angle = 0.463648<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc75></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2><BR>ceil（取不小于参数的最小整型数） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>fabs<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>#include 
+  &lt;math.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>double ceil (double 
+  x);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>ceil()会返回不小于参数x的最小整数值，结果以double形态返回。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>返回不小于参数x的最小整数值。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>附加说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>使用GCC编译时请加入-lm。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>#include&lt;math.h&gt;<BR>main()<BR>{<BR>double value[ 
+      ]={4.8,1.12,-2.2,0};<BR>int i;<BR>for 
+      (i=0;value[i]!=0;i++)<BR>printf("%f=&gt;%f\n",value[i],ceil(value[i]));<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>4.800000=&gt;5.000000<BR>1.120000=&gt;2.000000<BR>-2.200000=&gt;-2.000000<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc76></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2><BR>cos（取余玄函数值） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+    size=2>acos，asin，atan，atan2，sin，tan<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+size=2>#include&lt;math.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>double cos(double x);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>cos()用来计算参数x 
+    的余玄值，然后将结果返回。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>返回-1至1之间的计算结果。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>附加说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>使用GCC编译时请加入-lm。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>#include&lt;math.h&gt;<BR>main()<BR>{<BR>double answer = 
+      cos(0.5);<BR>printf("cos (0.5) = %f\n",answer);<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>cos(0.5) = 0.877583<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc77></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2><BR>cosh（取双曲线余玄函数值） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>sinh，tanh<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+size=2>#include&lt;math.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>double cosh(double 
+x);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>cosh()用来计算参数x的双曲线余玄值，然后将结果返回。数学定义式为:(exp(x)+exp(-x))/2。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>返回参数x的双曲线余玄值。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>附加说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>使用GCC编译时请加入-lm。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>#include&lt;math.h&gt;<BR>main()<BR>{<BR>double answer = 
+      cosh(0.5);<BR>printf("cosh(0.5) = %f\n",answer);<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>cosh(0.5) = 1.127626<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc78></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2><BR>exp（计算指数） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>log，log10，pow<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+size=2>#include&lt;math.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>double exp(double x);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>exp()用来计算以e为底的x次方值，即ex值，然后将结果返回。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>返回e的x次方计算结果。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>附加说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>使用GCC编译时请加入-lm。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>#include&lt;math.h&gt;<BR>main()<BR>{<BR>double answer;<BR>answer = 
+      exp (10);<BR>printf("e^10 =%f\n", answer);<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>e^10 = 22026.465795<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc79></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2><BR>frexp（将浮点型数分为底数与指数） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>ldexp，modf<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+size=2>#include&lt;math.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>double frexp( double x, int 
+      *exp);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>frexp()用来将参数x 
+      的浮点型数切割成底数和指数。底数部分直接返回，指数部分则借参数exp 指针返回，将返回值乘以2 
+  的exp次方即为x的值。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>返回参数x的底数部分，指数部分则存于exp指针所指的地址。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>附加说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>使用GCC编译时请加入-lm。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>#include 
+      &lt;math.h&gt;<BR>main()<BR>{<BR>int exp;<BR>double fraction;<BR>fraction 
+      = frexp (1024,&amp;exp);<BR>printf("exp = %d\n",exp);<BR>printf("fraction 
+      = %f\n", fraction);<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>exp = 11<BR>fraction = 0.500000 /* 
+      0.5*(2^11)=1024*/<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc80></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2><BR>ldexp（计算2的次方值） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>frexp<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+size=2>#include&lt;math.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>double ldexp(double x,int 
+      exp);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>ldexp()用来将参数x乘上2的exp次方值，即x*2exp。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>返回计算结果。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>附加说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>使用GCC编译时请加入-lm。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例: </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>/* 计算3*(2^2)＝12 
+      */<BR>#include&lt;math.h&gt;<BR>main()<BR>{<BR>int exp;<BR>double 
+      x,answer;<BR>answer = ldexp(3,2);<BR>printf("3*2^(2) = 
+      %f\n",answer);<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>3*2^(2) = 12.000000<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc81></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2><BR>log（计算以e 为底的对数值） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>exp，log10，pow<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>#include 
+  &lt;math.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>double log (double 
+x);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>log（）用来计算以e为底的x 
+    对数值，然后将结果返回。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>返回参数x的自然对数值。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>错误代码 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>EDOM 参数x为负数，ERANGE 
+      参数x为零值，零的对数值无定义。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>附加说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>使用GCC编译时请加入-lm。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>#include&lt;math.h&gt;<BR>main()<BR>{<BR>double answer;<BR>answer = 
+      log (100);<BR>printf("log(100) = %f\n",answer);<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>log(100) = 4.605170<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc82></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2><BR>log10（计算以10 为底的对数值） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>exp，log，pow<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+size=2>#include&lt;math.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>double log10(double 
+  x);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>log10()用来计算以10为底的x对数值，然后将结果返回。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>返回参数x以10为底的对数值。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>错误代码 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>EDOM参数x为负数。RANGE参数x为零值，零的对数值无定义。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>附加说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>使用GCC编译时请加入-lm。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>#include&lt;math.h&gt;<BR>main()<BR>{<BR>double answer;<BR>answer = 
+      log10(100);<BR>printf("log10(100) = %f\n",answer);<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>log10(100) = 2.000000<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc83></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2><BR>pow（计算次方值） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>exp，log，log10<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+size=2>#include&lt;math.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>double pow(double x,double 
+      y);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>pow()用来计算以x为底的y次方值，即xy值，然后将结果返回。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>返回x的y次方计算结果。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>错误代码 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>EDOM 参数x为负数且参数y不是整数。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>附加说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>使用GCC编译时请加入-lm。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>#include 
+      &lt;math.h&gt;<BR>main()<BR>{<BR>double answer;<BR>answer 
+      =pow(2,10);<BR>printf("2^10 = %f\n", answer);<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>2^10 = 1024.000000<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc84></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2><BR>sin（取正玄函数值） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+    size=2>acos，asin，atan，atan2，cos，tan<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+size=2>#include&lt;math.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>double sin(double x);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+  size=2>sin（）用来计算参数x的正玄值，然后将结果返回。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>返回-1 至1之间的计算结果。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>附加说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>使用GCC编译时请加入-lm。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>#include&lt;math.h&gt;<BR>main()<BR>{<BR>double answer = sin 
+      (0.5);<BR>printf("sin(0.5) = %f\n",answer);<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>sin(0.5) = 0.479426<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc85></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2><BR>sinh（取双曲线正玄函数值） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>cosh，tanh<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+size=2>#include&lt;math.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>double sinh( double 
+  x);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>sinh()用来计算参数x的双曲线正玄值，然后将结果返回。数学定义式为:(exp(x)-exp(-x))/2。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>返回参数x的双曲线正玄值。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>附加说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>使用GCC编译时请加入-lm。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>#include&lt;math.h&gt;<BR>main()<BR>{<BR>double answer = sinh 
+      (0.5);<BR>printf("sinh(0.5) = %f\n",answer);<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>sinh(0.5) = 0.521095<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc86></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2><BR>sqrt（计算平方根值） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>hypotq<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+size=2>#include&lt;math.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>double sqrt(double 
+x);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>sqrt()用来计算参数x的平方根，然后将结果返回。参数x必须为正数。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>返回参数x的平方根值。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>错误代码 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>EDOM 参数x为负数。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>附加说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>使用GCC编译时请加入-lm。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>/* 
+      计算200的平方根值*/<BR>#include&lt;math.h&gt;<BR>main()<BR>{<BR>double 
+      root;<BR>root = sqrt (200);<BR>printf("answer is 
+      %f\n",root);<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>answer is 14.142136<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc87></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2><BR>tan（取正切函数值） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>atan，atan2，cos，sin<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>#include 
+  &lt;math.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>double tan(double x);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+  size=2>tan()用来计算参数x的正切值，然后将结果返回。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>返回参数x的正切值。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>附加说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>使用GCC编译时请加入-lm。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>#include&lt;math.h&gt;<BR>main()<BR>{<BR>double answer = 
+      tan(0.5);<BR>printf("tan (0.5) = %f\n",answer);<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>tan(0.5) = 0.546302<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc88></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2><BR>tanh（取双曲线正切函数值） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>cosh，sinh<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+size=2>#include&lt;math.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>double tanh(double 
+x);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>tanh()用来计算参数x的双曲线正切值，然后将结果返回。数学定义式为:sinh(x)/cosh(x)。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>返回参数x的双曲线正切值。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>附加说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>使用GCC编译时请加入-lm。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>#include&lt;math.h&gt;<BR>main()<BR>{<BR>double answer = 
+      tanh(0.5);<BR>printf("tanh(0.5) = %f\n",answer);<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>tanh(0.5) = 0.462117<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR></DIV></TD></TR></TBODY></TABLE></BODY></HTML>

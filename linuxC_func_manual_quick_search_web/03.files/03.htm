@@ -1,0 +1,279 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0063)http://man/develop/c&c++/linux_c/function/03.html -->
+<HTML><HEAD><TITLE>Untitled Document</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gb2312">
+<META content="MSHTML 6.00.2900.2180" name=GENERATOR></HEAD>
+<BODY><A href="http://man/">&lt;&lt; Back to man 
+</A><BR><BR>
+<TABLE width="100%">
+  <TBODY>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc25></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2><BR>calloc（配置内存空间） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+  size=2>malloc，free，realloc，brk<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>#include 
+  &lt;stdlib.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>void *calloc(size_t nmemb，size_t 
+      size);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>calloc()用来配置nmemb个相邻的内存单位，每一单位的大小为size，并返回指向第一个元素的指针。这和使用下列的方式效果相同:malloc(nmemb*size);不过，在利用calloc()配置内存时会将内存内容初始化为0。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+size=2>若配置成功则返回一指针，失败则返回NULL。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>/* 动态配置10个struct test 
+      空间*/<BR>#include&lt;stdlib.h&gt;<BR>struct test<BR>{<BR>int a[10];<BR>char 
+      b[20];<BR>}<BR>main()<BR>{<BR>struct test *ptr=calloc(sizeof(struct 
+      test),10);<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc26></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2><BR>free（释放原先配置的内存） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+  size=2>malloc，calloc，realloc，brk<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+  size=2>#include&lt;stdlib.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>void free(void *ptr);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>参数ptr为指向先前由malloc()、calloc()或realloc()所返回的内存指针。调用free()后ptr所指的内存空间便会被收回。假若参数ptr所指的内存空间已被收回或是未知的内存地址，则调用free()可能会有无法预期的情况发生。若参数ptr为NULL，则free()不会有任何作用。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc27></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2><BR>getpagesize（取得内存分页大小） 
+</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>sbrk<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+  size=2>#include&lt;unistd.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>size_t 
+  getpagesize(void);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>返回一分页的大小，单位为字节（byte）。此为系统的分页大小，不一定会和硬件分页大小相同。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>内存分页大小。附加说明在Intel x86 
+      上其返回值应为4096bytes。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>#include 
+      &lt;unistd.h&gt;<BR>main()<BR>{<BR>printf(“page size = %d\n”,getpagesize( 
+      ) );<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc28></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2><BR>malloc（配置内存空间） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+  size=2>calloc，free，realloc，brk<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+  size=2>#include&lt;stdlib.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>void * malloc(size_t 
+    size);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>malloc()用来配置内存空间，其大小由指定的size决定。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+size=2>若配置成功则返回一指针，失败则返回NULL。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>void p = malloc(1024); 
+      /*配置1k的内存*/<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc29></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2><BR>mmap（建立内存映射） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>munmap，open<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>#include &lt;unistd.h&gt;<BR>#include 
+      &lt;sys/mman.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>void *mmap(void *start,size_t 
+      length,int prot,int flags,int fd,off_t offsize);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>mmap()用来将某个文件内容映射到内存中，对该内存区域的存取即是直接对该文件内容的读写。参数start指向欲对应的内存起始地址，通常设为NULL，代表让系统自动选定地址，对应成功后该地址会返回。参数length代表将文件中多大的部分对应到内存。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>参数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>prot代表映射区域的保护方式有下列组合<BR>PROT_EXEC 
+      映射区域可被执行<BR>PROT_READ 映射区域可被读取<BR>PROT_WRITE 映射区域可被写入<BR>PROT_NONE 
+      映射区域不能存取<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>参数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>flags会影响映射区域的各种特性<BR>MAP_FIXED 
+      如果参数start所指的地址无法成功建立映射时，则放弃映射，不对地址做修正。通常不鼓励用此旗标。<BR>MAP_SHARED对映射区域的写入数据会复制回文件内，而且允许其他映射该文件的进程共享。<BR>MAP_PRIVATE 
+      对映射区域的写入操作会产生一个映射文件的复制，即私人的“写入时复制”（copy on 
+      write）对此区域作的任何修改都不会写回原来的文件内容。<BR>MAP_ANONYMOUS建立匿名映射。此时会忽略参数fd，不涉及文件，而且映射区域无法和其他进程共享。<BR>MAP_DENYWRITE只允许对映射区域的写入操作，其他对文件直接写入的操作将会被拒绝。<BR>MAP_LOCKED 
+      将映射区域锁定住，这表示该区域不会被置换（swap）。<BR>在调用mmap()时必须要指定MAP_SHARED 
+      或MAP_PRIVATE。参数fd为open()返回的文件描述词，代表欲映射到内存的文件。参数offset为文件映射的偏移量，通常设置为0，代表从文件最前方开始对应，offset必须是分页大小的整数倍。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>若映射成功则返回映射区的内存起始地址，否则返回MAP_FAILED(－1)，错误原因存于errno 
+  中。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>错误代码 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>EBADF 参数fd 不是有效的文件描述词<BR>EACCES 
+      存取权限有误。如果是MAP_PRIVATE 
+      情况下文件必须可读，使用MAP_SHARED则要有PROT_WRITE以及该文件要能写入。<BR>EINVAL 参数start、length 
+      或offset有一个不合法。<BR>EAGAIN 文件被锁住，或是有太多内存被锁住。<BR>ENOMEM 
+内存不足。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>/* 利用mmap()来读取/etc/passwd 
+      文件内容*/<BR>#include&lt;sys/types.h&gt;<BR>#include&lt;sys/stat.h&gt;<BR>#include&lt;fcntl.h&gt;<BR>#include&lt;unistd.h&gt;<BR>#include&lt;sys/mman.h&gt;<BR>main()<BR>{<BR>int 
+      fd;<BR>void *start;<BR>struct stat sb;<BR>fd=open(“/etc/passwd”,O_RDONLY); 
+      /*打开/etc/passwd*/<BR>fstat(fd,&amp;sb); 
+      /*取得文件大小*/<BR>start=mmap(NULL,sb.st_size,PROT_READ,MAP_PRIVATE,fd,0);<BR>if(start= 
+      = MAP_FAILED) 
+      /*判断是否映射成功*/<BR>return;<BR>printf(“%s”,start);<BR>munma(start,sb.st_size); 
+      /*解除映射*/<BR>closed(fd);<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>root : x : 0 : root : /root : 
+      /bin/bash<BR>bin : x : 1 : 1 : bin : /bin :<BR>daemon : x : 2 : 2 :daemon 
+      : /sbin<BR>adm : x : 3 : 4 : adm : /var/adm :<BR>lp : x :4 :7 : lp : 
+      /var/spool/lpd :<BR>sync : x : 5 : 0 : sync : /sbin : bin/sync 
+      :<BR>shutdown : x : 6 : 0 : shutdown : /sbin : /sbin/shutdown<BR>halt : x 
+      : 7 : 0 : halt : /sbin : /sbin/halt<BR>mail : x : 8 : 12 : mail : 
+      /var/spool/mail :<BR>news : x :9 :13 : news : /var/spool/news :<BR>uucp : 
+      x :10 :14 : uucp : /var/spool/uucp :<BR>operator : x : 11 : 0 :operator : 
+      /root:<BR>games : x : 12 :100 : games :/usr/games:<BR>gopher : x : 13 : 30 
+      : gopher : /usr/lib/gopher-data:<BR>ftp : x : 14 : 50 : FTP User : 
+      /home/ftp:<BR>nobody : x :99: 99: Nobody : /:<BR>xfs :x :100 :101 : X Font 
+      Server : /etc/xll/fs : /bin/false<BR>gdm : x : 42 :42 : : /home/gdm: 
+      /bin/bash<BR>kids : x : 500 :500 :/home/kids : /bin/bash<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc30></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2><BR>munmap（解除内存映射） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>mmap<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>#include&lt;unistd.h&gt;<BR>#include&lt;sys/mman.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>int munmap(void *start,size_t 
+      length);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>munmap()用来取消参数start所指的映射内存起始地址，参数length则是欲取消的内存大小。当进程结束或利用exec相关函数来执行其他程序时，映射内存会自动解除，但关闭对应的文件描述词时不会解除映射。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>如果解除映射成功则返回0，否则返回－1，错误原因存于errno中错误代码EINVAL<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>参数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>start或length 不合法。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>参考mmap（）<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR></DIV></TD></TR></TBODY></TABLE></BODY></HTML>

@@ -1,0 +1,351 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0063)http://man/develop/c&c++/linux_c/function/08.html -->
+<HTML><HEAD><TITLE>Untitled Document</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gb2312">
+<META content="MSHTML 6.00.2900.2180" name=GENERATOR></HEAD>
+<BODY><A href="http://man/">&lt;&lt; Back to man 
+</A><BR><BR>
+<TABLE width="100%">
+  <TBODY>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc125></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR>crypt（将密码或数据编码） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>getpass<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#define 
+      _XOPEN_SOURCE<BR>#include&lt;unistd.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>char * crypt (const char *key,const char * 
+      salt);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>crypt()将使用Data Encryption 
+      Standard(DES)演算法将参数key所指的字符串加以编码，key字符串长度仅取前8个字符，超过此长度的字符没有意义。参数salt为两个字符组成的字符串，由a-z、A-Z、0-9，“.”和“/”所组成，用来决定使用4096 
+      种不同内建表格的哪一个。函数执行成功后会返回指向编码过的字符串指针，参数key 所指的字符串不会有所更动。编码过的字符串长度为13 
+      个字符，前两个字符为参数salt代表的字符串。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>返回一个指向以NULL结尾的密码字符串。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>附加说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>使用GCC编译时需加-lcrypt。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#include&lt;unistd.h&gt;<BR>main()<BR>{<BR>char 
+      passwd[13];<BR>char *key;<BR>char slat[2];<BR>key= getpass(“Input First 
+      Password:”);<BR>slat[0]=key[0];<BR>slat[1]=key[1];<BR>strcpy(passwd,crypt(key 
+      slat));<BR>key=getpass(“Input Second 
+      Password:”);<BR>slat[0]=passwd[0];<BR>slat[1]=passwd[1];<BR>printf(“After 
+      crypt(),1st passwd :%s\n”,passwd);<BR>printf(“After crypt(),2nd passwd:%s 
+      \n”,crypt(key slat));<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>Input First Password: /* 输入test，编码后存于passwd[ ] 
+      */<BR>Input Second Password /*输入test，密码相同编码后也会相同*/<BR>After crypt () 1st 
+      Passwd : teH0wLIpW0gyQ<BR>After crypt () 2nd Passwd : 
+      teH0wLIpW0gyQ<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc126></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR>bsearch（二元搜索） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>qsort<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#include&lt;stdlib.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>void *bsearch(const void *key,const void 
+      *base,size_t nmemb,size_tsize,int (*compar) (const void*,const 
+      void*));<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>bsearch()利用二元搜索从排序好的数组中查找数据。参数key指向欲查找的关键数据，参数base指向要被搜索的数组开头地址，参数nmemb 
+      代表数组中的元素数量，每一元素的大小则由参数size决定，最后一项参数compar 
+      为一函数指针，这个函数用来判断两个元素之间的大小关系，若传给compar 的第一个参数所指的元素数据大于第二个参数所指的元素数据则必须回传大于0 
+      的值，两个元素数据相等则回传0。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>附加说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+  size=2>找到关键数据则返回找到的地址，如果在数组中找不到关键数据则返回NULL。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>#include&lt;stdio.h&gt;<BR>#include&lt;stdlib.h&gt;<BR>#define 
+      NMEMB 5<BR>#define SIZE 10<BR>int compar(const void *a,const void 
+      *b)<BR>{<BR>return (strcmp((char *)a,(char 
+      *)b));<BR>}<BR>main()<BR>{<BR>char 
+      data[50][size]={“linux”,”freebsd”,”solaris”,”sunos”,”windows”};<BR>char 
+      key[80],*base ,*offset;<BR>int i, 
+      nmemb=NMEMB,size=SIZE;<BR>while(1){<BR>printf(“&gt;”);<BR>fgets(key,sizeof(key),stdin);<BR>key[strlen(key)-1]=’\0’;<BR>if(!strcmp(key,”exit”))break;<BR>if(!strcmp(key,”list”)){<BR>for(i=0;i&lt;nmemb;i++)<BR>printf(“%s\n”,data[i]);<BR>continue;<BR>}<BR>base 
+      = data[0];<BR>qsort(base,nmemb,size,compar);<BR>offset = (char *) 
+      bsearch(key,base,nmemb,size,compar);<BR>if( offset = =NULL){<BR>printf(“%s 
+      not found!\n”,key);<BR>strcpy(data[nmemb++],key);<BR>printf(“Add %s to 
+      data array\n”,key);<BR>}else{<BR>printf(“found: %s 
+      \n”,offset);<BR>}<BR>}<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>&gt;hello /*输入hello字符串*/<BR>hello not found! 
+      /*找不到hello 字符串*/<BR>add hello to data array /*将hello字符串加入*/<BR>&gt;.list 
+      /*列出所有数据*/<BR>freebsd<BR>linux<BR>solaris<BR>sunos<BR>windows<BR>hello<BR>&gt;hello<BR>found: 
+      hello<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc127></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR>lfind（线性搜索） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>lsearch<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#include&lt;stdlib.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>void *lfind (const void *key,const void 
+      *base,size_t *nmemb,size_t<BR>size,int(* compar) (const void * ,const void 
+      *));<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>lfind()利用线性搜索在数组中从头至尾一项项查找数据。参数key指向欲查找的关键数据，参数base指向要被搜索的数组开头地址，参数nmemb代表数组中的元素数量，每一元素的大小则由参数size决定，最后一项参数compar为一函数指针，这个函数用来判断两个元素是否相同，若传给compar 
+      的异地个参数所指的元素数据和第二个参数所指的元素数据相同时则返回0，两个元素数据不相同则返回非0值。Lfind()与lsearch()不同点在于，当找不到关键数据时lfind()仅会返回NULL，而不会主动把该笔数据加入数组尾端。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>找到关键数据则返回找到的该笔元素的地址，如果在数组中找不到关键数据则返回空指针(NULL)。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>参考lsearch()。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc128></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR>lsearch（线性搜索） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>lfind<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#include&lt;stdlib.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>void *lsearch(const void * key ,const void * base 
+      ,size_t * nmemb,size_t size, int ( * compar) (const void * ,const void 
+      *));<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>lsearch()利用线性搜索在数组中从头至尾一项项查找数据。参数key指向欲查找的关键数据，参数base指向要被搜索的数组开头地址，参数nmemb 
+      代表数组中的元素数量，每一元素的大小则由参数size 决定，最后一项参数compar 
+      为一函数指针，这个函数用来判断两个元素是否相同，若传给compar 
+      的第一个参数所指的元素数据和第二个参数所指的元素数据相同时则返回0，两个元素数据不相同则返回非0 
+      值。如果lsearch（）找不到关键数据时会主动把该项数据加入数组里。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>找到关键数据则返回找到的该笔元素的四肢，如果在数组中找不到关键数据则将此关键数据加入数组，再把加入数组后的地址返回。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>#include&lt;stdio.h&gt;<BR>#include&lt;stdlib.h&gt;<BR>#define 
+      NMEMB 50<BR>#define SIZE 10<BR>int compar (comst void *a,const void 
+      *b)<BR>{<BR>return (strcmp((char *) a, (char *) 
+      b));<BR>}<BR>main()<BR>{<BR>char 
+      data[NMEMB][SIZE]={“Linux”,”freebsd”,”solzris”,”sunos”,”windows”};<BR>char 
+      key[80],*base,*offset;<BR>int i, 
+      nmemb=NMEMB,size=SIZE;<BR>for(i=1;i&lt;5;i++){<BR>fgets(key,sizeof9key),stdin);<BR>key[strlen(key)-1]=’\0’;<BR>base 
+      = data[0];<BR>offset = (char 
+      *)lfind(key,base,&amp;nmemb,size,compar);<BR>if(offset 
+      ==NULL){<BR>printf(“%s not found!\n”,key);<BR>offset=(char *) 
+      lsearch(key,base,&amp;nmemb,size,compar);<BR>printf(“Add %s to data 
+      array\n”,offset);<BR>}else{<BR>printf(“found : %s 
+      \n”,offset);<BR>}<BR>}<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>linux<BR>found:linux<BR>os/2<BR>os/2 not 
+      found!<BR>add os/2 to data array<BR>os/2<BR>found:os/2<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc129></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR>qsort（利用快速排序法排列数组） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>bsearch<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#include&lt;stdlib.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>void qsort(void * base,size_t nmemb,size_t 
+      size,int ( * compar)(const void *, const void *));<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>参数base指向欲排序的数组开头地址，参数nmemb代表数组中的元素数量，每一元素的大小则由参数size决定，最后一项参数compar为一函数指针，这个函数用来判断两个元素间的大小关系，若传给compar的第一个参数所指的元素数据大于第二个参数所指的元素数据则必须回传大于零的值，两个元素数据相等则回传0。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>附加说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#define nmemb 7<BR>#include 
+      &lt;stdlib.h&gt;<BR>int compar (const void *a ,const void *b)<BR>{<BR>int 
+      *aa=(int * ) a,*bb = (int * )b;<BR>if( * aa &gt;* bb)return 1;<BR>if( * aa 
+      == * bb) return 0;<BR>if( * aa &lt; *bb) return -1;<BR>}<BR>main( 
+      )<BR>{<BR>int base[nmemb]={ 3,102,5,-2,98,52,18};<BR>int i;<BR>for ( i=0; 
+      i&lt;nmemb;i++)<BR>printf(“%d 
+      “,base[i]);<BR>printf(“\n”);<BR>qsort(base,nmemb,sizeof(int),compar);<BR>for(i=0;i&lt;nmemb;i++)<BR>printf(“%d”base[i]);<BR>printf(“\n”);<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>3 102 5 -2 98 52 18<BR>-2 3 5 18 52 98 
+      102<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc130></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR>rand（产生随机数） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>srand，random，srandom<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#include&lt;stdlib.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>int rand(void)<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>rand()会返回一随机数值，范围在0至RAND_MAX 
+      间。在调用此函数产生随机数前，必须先利用srand()设好随机数种子，如果未设随机数种子，rand()在调用时会自动设随机数种子为1。关于随机数种子请参考srand()。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>返回0至RAND_MAX之间的随机数值，RAND_MAX定义在stdlib.h，其值为2147483647。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>/* 产生介于1 到10 
+      间的随机数值，此范例未设随机数种子，完整的随机数产生请参考<BR>srand（）*/<BR>#include&lt;stdlib.h&gt;<BR>main()<BR>{<BR>int 
+      i,j;<BR>for(i=0;i&lt;10;i++)<BR>{<BR>j=1+(int)(10.0*rand()/(RAND_MAX+1.0));<BR>printf(“%d 
+      “,j);<BR>}<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>9 4 8 8 10 2 4 8 3 6<BR>9 4 8 8 10 2 4 8 3 
+      6<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc131></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR>srand（设置随机数种子） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>rand，random srandom<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>#include&lt;stdlib.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>void srand (unsigned int seed);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD><FONT face=宋体 
+      size=2>srand()用来设置rand()产生随机数时的随机数种子。参数seed必须是个整数，通常可以利用geypid()或time(0)的返回值来当做seed。如果每次seed都设相同值，rand()所产生的随机数值每次就会一样。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2><BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>/* 产生介于1 到10 
+      间的随机数值，此范例与执行结果可与rand（）参照*/<BR>#include&lt;time.h&gt;<BR>#include&lt;stdlib.h&gt;<BR>main()<BR>{<BR>int 
+      i,j;<BR>srand((int)time(0));<BR>for(i=0;i&lt;10;i++)<BR>{<BR>j=1+(int)(10.0*rand()/(RAND_MAX+1.0));<BR>printf(“ 
+      %d “,j);<BR>}<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD><FONT face=宋体 size=2>5 8 8 8 10 2 10 8 9 9<BR>2 9 7 4 10 3 2 10 8 
+      7<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR></DIV></TD></TR></TBODY></TABLE></BODY></HTML>

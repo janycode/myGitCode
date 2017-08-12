@@ -1,0 +1,400 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0063)http://man/develop/c&c++/linux_c/function/04.html -->
+<HTML><HEAD><TITLE>Untitled Document</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gb2312">
+<META content="MSHTML 6.00.2900.2180" name=GENERATOR></HEAD>
+<BODY><A href="http://man/">&lt;&lt; Back to man 
+</A><BR><BR>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc32></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2><BR>asctime（将时间和日期以字符串格式表示） 
+  </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+    size=2>time，ctime，gmtime，localtime<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+size=2>#include&lt;time.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>char * asctime(const struct tm * 
+      timeptr);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>asctime()将参数timeptr所指的tm结构中的信息转换成真实世界所使用的时间日期表示方法，然后将结果以字符串形态返回。此函数已经由时区转换成当地时间，字符串格式为:“Wed 
+      Jun 30 21:49:08 1993\n”<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>若再调用相关的时间日期函数，此字符串可能会被破坏。此函数与ctime不同处在于传入的参数是不同的结构。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>附加说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>返回一字符串表示目前当地的时间日期。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>#include 
+      &lt;time.h&gt;<BR>main()<BR>{<BR>time_t timep;<BR>time 
+      (&amp;timep);<BR>printf(“%s”,asctime(gmtime(&amp;timep)));<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>Sat Oct 28 02:10:06 
+  2000<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc33></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2><BR>ctime（将时间和日期以字符串格式表示） 
+</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>time，asctime，gmtime，localtime<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+size=2>#include&lt;time.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>char *ctime(const time_t 
+      *timep);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>ctime()将参数timep所指的time_t结构中的信息转换成真实世界所使用的时间日期表示方法，然后将结果以字符串形态返回。此函数已经由时区转换成当地时间，字符串格式为“Wed 
+      Jun 30 21 :49 :08 1993\n”。若再调用相关的时间日期函数，此字符串可能会被破坏。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>返回一字符串表示目前当地的时间日期。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>#include&lt;time.h&gt;<BR>main()<BR>{<BR>time_t timep;<BR>time 
+      (&amp;timep);<BR>printf(“%s”,ctime(&amp;timep));<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>Sat Oct 28 10 : 12 : 05 
+    2000<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc34></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2><BR>gettimeofday（取得目前的时间） 
+</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>time，ctime，ftime，settimeofday<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>#include 
+      &lt;sys/time.h&gt;<BR>#include &lt;unistd.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>int gettimeofday ( struct timeval * tv 
+      , struct timezone * tz )<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>gettimeofday()会把目前的时间有tv所指的结构返回，当地时区的信息则放到tz所指的结构中。<BR>timeval结构定义为:<BR>struct 
+      timeval{<BR>long tv_sec; /*秒*/<BR>long tv_usec; /*微秒*/<BR>};<BR>timezone 
+      结构定义为:<BR>struct timezone{<BR>int tz_minuteswest; /*和Greenwich 
+      时间差了多少分钟*/<BR>int tz_dsttime; 
+      /*日光节约时间的状态*/<BR>};<BR>上述两个结构都定义在/usr/include/sys/time.h。tz_dsttime 
+      所代表的状态如下<BR>DST_NONE /*不使用*/<BR>DST_USA /*美国*/<BR>DST_AUST 
+      /*澳洲*/<BR>DST_WET /*西欧*/<BR>DST_MET /*中欧*/<BR>DST_EET /*东欧*/<BR>DST_CAN 
+      /*加拿大*/<BR>DST_GB /*大不列颠*/<BR>DST_RUM /*罗马尼亚*/<BR>DST_TUR 
+      /*土耳其*/<BR>DST_AUSTALT /*澳洲（1986年以后）*/<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>成功则返回0，失败返回－1，错误代码存于errno。附加说明EFAULT指针tv和tz所指的内存空间超出存取权限。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>#include&lt;sys/time.h&gt;<BR>#include&lt;unistd.h&gt;<BR>main(){<BR>struct 
+      timeval tv;<BR>struct timezone tz;<BR>gettimeofday (&amp;tv , 
+      &amp;tz);<BR>printf(“tv_sec; %d\n”, tv,.tv_sec) ;<BR>printf(“tv_usec; 
+      %d\n”,tv.tv_usec);<BR>printf(“tz_minuteswest; %d\n”, 
+      tz.tz_minuteswest);<BR>printf(“tz_dsttime, 
+      %d\n”,tz.tz_dsttime);<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>tv_sec: 
+      974857339<BR>tv_usec:136996<BR>tz_minuteswest:-540<BR>tz_dsttime:0<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc35></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2><BR>gmtime（取得目前时间和日期） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+    size=2>time,asctime,ctime,localtime<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+size=2>#include&lt;time.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>struct tm*gmtime(const 
+      time_t*timep);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>gmtime()将参数timep 所指的time_t 
+      结构中的信息转换成真实世界所使用的时间日期表示方法，然后将结果由结构tm返回。<BR>结构tm的定义为<BR>struct 
+      tm<BR>{<BR>int tm_sec;<BR>int tm_min;<BR>int tm_hour;<BR>int 
+      tm_mday;<BR>int tm_mon;<BR>int tm_year;<BR>int tm_wday;<BR>int 
+      tm_yday;<BR>int tm_isdst;<BR>};<BR>int tm_sec 
+      代表目前秒数，正常范围为0-59，但允许至61秒<BR>int tm_min 代表目前分数，范围0-59<BR>int tm_hour 
+      从午夜算起的时数，范围为0-23<BR>int tm_mday 目前月份的日数，范围01-31<BR>int tm_mon 
+      代表目前月份，从一月算起，范围从0-11<BR>int tm_year 从1900 年算起至今的年数<BR>int tm_wday 
+      一星期的日数，从星期一算起，范围为0-6<BR>int tm_yday 从今年1月1日算起至今的天数，范围为0-365<BR>int 
+      tm_isdst 日光节约时间的旗标<BR>此函数返回的时间日期未经时区转换，而是UTC时间。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>返回结构tm代表目前UTC 时间<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>#include 
+      &lt;time.h&gt;<BR>main(){<BR>char 
+      *wday[]={"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};<BR>time_t 
+      timep;<BR>struct tm 
+      *p;<BR>time(&amp;timep);<BR>p=gmtime(&amp;timep);<BR>printf(“%d%d%d”,(1900+p-&gt;tm_year), 
+      (1+p-&gt;tm_mon),p-&gt;tm_mday);<BR>printf(“%s%d;%d;%d\n”, 
+      wday[p-&gt;tm_wday], p-&gt;tm_hour, p-&gt;tm_min, 
+      p-&gt;tm_sec);<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>2000/10/28 Sat 
+8:15:38<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc36></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2><BR>localtime（取得当地目前时间和日期） 
+  </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>time, asctime, ctime, 
+    gmtime<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+size=2>#include&lt;time.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>struct tm *localtime(const time_t * 
+      timep);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>localtime()将参数timep所指的time_t结构中的信息转换成真实世界所使用的时间日期表示方法，然后将结果由结构tm返回。结构tm的定义请参考gmtime()。此函数返回的时间日期已经转换成当地时区。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>返回结构tm代表目前的当地时间。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>#include&lt;time.h&gt;<BR>main(){<BR>char 
+      *wday[]={“Sun”,”Mon”,”Tue”,”Wed”,”Thu”,”Fri”,”Sat”};<BR>time_t 
+      timep;<BR>struct tm *p;<BR>time(&amp;timep);<BR>p=localtime(&amp;timep); 
+      /*取得当地时间*/<BR>printf (“%d%d%d ”, (1900+p-&gt;tm_year),( l+p-&gt;tm_mon), 
+      p-&gt;tm_mday);<BR>printf(“%s%d:%d:%d\n”, 
+      wday[p-&gt;tm_wday],p-&gt;tm_hour, p-&gt;tm_min, 
+      p-&gt;tm_sec);<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>2000/10/28 Sat 
+  11:12:22<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc37></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2><BR>mktime（将时间结构数据转换成经过的秒数） 
+  </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>time，asctime，gmtime，localtime<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+size=2>#include&lt;time.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>time_t mktime(strcut tm * 
+      timeptr);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>mktime()用来将参数timeptr所指的tm结构数据转换成从公元1970年1月1日0时0分0 
+      秒算起至今的UTC时间所经过的秒数。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>返回经过的秒数。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>/* 
+      用time()取得时间（秒数），利用localtime()<BR>转换成struct tm 再利用mktine（）将struct 
+      tm转换成原来的秒数*/<BR>#include&lt;time.h&gt;<BR>main()<BR>{<BR>time_t 
+      timep;<BR>strcut tm *p;<BR>time(&amp;timep);<BR>printf(“time() : %d 
+      \n”,timep);<BR>p=localtime(&amp;timep);<BR>timep = 
+      mktime(p);<BR>printf(“time()-&gt;localtime()-&gt;mktime():%d\n”,timep);<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>time():974943297<BR>time()-&gt;localtime()-&gt;mktime():974943297<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc38></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2><BR>settimeofday（设置目前时间） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>time，ctime，ftime，gettimeofday<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>#include&lt;sys/time.h&gt;<BR>#include&lt;unistd.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>int settimeofday ( const struct 
+      timeval *tv,const struct timezone *tz);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>settimeofday()会把目前时间设成由tv所指的结构信息，当地时区信息则设成tz所指的结构。详细的说明请参考gettimeofday()。注意，只有root权限才能使用此函数修改时间。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+    size=2>成功则返回0，失败返回－1，错误代码存于errno。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>错误代码 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>EPERM 
+      并非由root权限调用settimeofday（），权限不够。<BR>EINVAL 
+    时区或某个数据是不正确的，无法正确设置时间。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR><FONT face=宋体 size=2><A 
+      name=linuxc39></A></FONT></DIV></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2><BR></FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2><BR>time（取得目前的时间） </FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>相关函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+  size=2>ctime，ftime，gettimeofday<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>表头文件 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+size=2>#include&lt;time.h&gt;<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>定义函数 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>time_t time(time_t 
+  *t);<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>函数说明 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>此函数会返回从公元1970年1月1日的UTC时间从0时0分0秒算起到现在所经过的秒数。如果t 
+      并非空指针的话，此函数也会将返回值存到t指针所指的内存。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>返回值 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>成功则返回秒数，失败则返回((time_t)-1)值，错误原因存于errno中。<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>范例 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 
+      size=2>#include&lt;time.h&gt;<BR>mian()<BR>{<BR>int seconds= 
+      time((time_t*)NULL);<BR>printf(“%d\n”,seconds);<BR>}<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>
+      <DIV align=right><FONT face=宋体 size=2>执行 </FONT></DIV></TD>
+    <TD vAlign=top><FONT face=宋体 size=2>9.73E+08<BR></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=80>　 
+      <DIV align=right><BR></DIV></TD></TR></TBODY></TABLE></BODY></HTML>
