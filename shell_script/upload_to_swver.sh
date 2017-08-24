@@ -2,6 +2,7 @@
 # file name: [upload_to_swver.sh]
 # file function: make package, copy package directory to swver, version number update, git commit files.
 # file usage: $0 <customID> <project name> <Mainboard pathname>
+# author: yuan.jiang
 
 #set -v on
 
