@@ -130,6 +130,10 @@ int send_post(char* access_token, char *base64_buff)
     char post_url[256] = {0};
     char token_str[32] = "?access_token=";
 
+	if (access_token == NULL) {
+		printf ("accses_token is empty...\n");
+	}
+
     strncpy (post_url, POST_PATH, strlen(POST_PATH));
     strncat (post_url, token_str, strlen(token_str));
     strncat (post_url, access_token, strlen(access_token));
@@ -137,7 +141,7 @@ int send_post(char* access_token, char *base64_buff)
 
     curl = curl_easy_init();
     if (curl) {
-		/* 进行多张图片的人脸识别时，每次长度会重新置0 */
+		/* 进行多张人脸的单张图片的人脸识别时，每次长度会重新置0 */
 		int response_len = 0;
         struct curl_httppost *post = NULL; // 百度给的demo类型有误，curl库中类型为 struct curl_httppost
         struct curl_httppost *last = NULL; // 百度给的demo类型有误，curl库中类型为 struct curl_httppost
