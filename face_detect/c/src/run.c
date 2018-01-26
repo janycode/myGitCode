@@ -588,7 +588,12 @@ int main (int argc, char *argv[])
     char *access_token = NULL;
 	char *img_buff = NULL;
 	char *base64_buff = NULL;
-    
+   
+	if (p == NULL) {
+		printf ("Please input a image file, like this:\n");	
+		printf ("    ./run ./image/0.jpg\n");
+		return -1;
+	}
 	printf ("\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\nFace detect start...\n");
     //1. encode image. >> base64_info
     read_img_encode(p, &img_buff, &base64_buff);
