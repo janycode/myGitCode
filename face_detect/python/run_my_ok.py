@@ -26,14 +26,18 @@ def get_access_token():
 	token_request.add_header('Content-Type', 'application/json; charset=UTF-8')
 	token_response = urllib2.urlopen(token_request)
 	content = token_response.read()
-#	if content:
-#		print (">> access_token_response = " + content)
-	if "access_token" in content:
-		(key, value) = content.split(",", 1)
-		(access_token_str, access_token) = key.split(":", 1)
-		access_token = access_token.strip("\"")
-		print (">> access_token = " + access_token)
-
+	if content:
+		print (">> access_token_response = " + content)
+#	if "access_token" in content:
+#		(key, value) = content.split(",", 1)
+#		(access_token_str, access_token) = key.split(":", 1)
+#		access_token = access_token.strip("\"")
+#		print (">> access_token = " + access_token)
+	token_result = json.loads(content)
+	print (type(content)) #type: str
+	print (type(token_result)) #type: dict
+	print (type(json.dumps(token_result['access_token']))) #type: str
+	access_token = json.dumps(token_result['access_token']).strip("\"")
 	return access_token
 
 def read_img_encode():
@@ -59,9 +63,10 @@ def get_http_response(access_token, request_data):
 #	if content:
 #		print (">> baidu response = " + content)
 	result_data = json.loads(content)
-	#Test date type.
-	print (type(result_data))
-	print (type(json.dumps(result_data['result_num'])))
+	#Test data type.
+	print (type(content)) #type: str, after response.read()
+	print (type(result_data)) #type: dict, after json.loads()
+	print (type(json.dumps(result_data['result_num']))) #type: str, used to get dest string.
 
 	return result_data
 
