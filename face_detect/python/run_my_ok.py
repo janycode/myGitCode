@@ -26,8 +26,8 @@ def get_access_token():
 	token_request.add_header('Content-Type', 'application/json; charset=UTF-8')
 	token_response = urllib2.urlopen(token_request)
 	content = token_response.read()
-	if content:
-		print (">> access_token_response = " + content)
+#	if content:
+#		print (">> access_token_response = " + content)
 	if "access_token" in content:
 		(key, value) = content.split(",", 1)
 		(access_token_str, access_token) = key.split(":", 1)
@@ -56,8 +56,8 @@ def get_http_response(access_token, request_data):
 	request.add_header('Content-Type', 'application/x-www-form-urlencoded')
 	response = urllib2.urlopen(request)
 	content = response.read()
-	if content:
-		print (">> baidu response = " + content)
+#	if content:
+#		print (">> baidu response = " + content)
 	result_data = json.loads(content)
 	#Test date type.
 	print (type(result_data))
