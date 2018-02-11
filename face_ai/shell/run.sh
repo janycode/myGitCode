@@ -35,7 +35,7 @@ function base64_image()
 		base64 $2 > ${base64_file2}
 		base64_file=${current_path}"/encode/base64_file.txt"
 		urlencode_file=${current_path}"/encode/urlencode_file.txt"
-		echo -e "images=\c" > ${base64_file}
+#		echo -e "images=\c" > ${base64_file}
 		# 釜底抽薪法读取文件 #
 		while read LINE
 		do 
@@ -47,7 +47,6 @@ function base64_image()
 		do
 			echo $LINE >> ${base64_file}
 		done < ${base64_file2}
-		# 釜底抽薪法读取文件 #
 #		echo -e `cat ${base64_file1}`"\c" >> ${base64_file}
 #		echo -e ",\c" >> ${base64_file}
 #		echo -e `cat ${base64_file2}`"\c" >> ${base64_file}
@@ -88,7 +87,7 @@ function send_post_request()
 	elif [ -n "$2" ]; then
 		post_request_path=${face_match_post_path}"?access_token="${access_token}
 		echo -e "-------------------------------\nBaidu face match response as follow:"
-		response=`curl -s -X POST -H "Content-Type:application/x-www-form-urlencoded" --data-urlencode @"${base64_file}" -i ${post_request_path}`
+		response=`curl -s -H "Content-Type:application/x-www-form-urlencoded" --data "images=" --data @${base64_file} ${post_request_path}`
 #		response=`curl -s -X POST -k -H "Content-Type:application/x-www-form-urlencoded" --data "images=" --data-urlencode @${urlencode_file} -i ${post_request_path}`
 	else
 		echo "The param error...please check."

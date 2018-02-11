@@ -742,7 +742,7 @@ int main (int argc, char *argv[])
 	//face detect
 	if (argc == 2) {
 
-		printf ("\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\nFace detect start...\n");
+		printf ("\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n Face detect start...\n");
 	    //1. encode image. >> base64_info
 	    read_img_encode(argv[1], &img_data.img_buff, &img_data.base64_buff);
 	    //2. Get access token. >> access_token
@@ -759,7 +759,7 @@ int main (int argc, char *argv[])
 	}
 	//face match
 	else if(argc == 3) {
-		printf ("\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\nFace match start...\n");
+		printf ("\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n Face match start...\n");
 		//1. encode image. >> base64_info
 		read_img_encode(argv[1], &img_data.img_buff, &img_data.base64_buff);
 		read_img_encode(argv[2], &img_data.img_buff, &img_data.base64_buff2);
