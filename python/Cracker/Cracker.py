@@ -4,8 +4,8 @@
 # Filename	£ºCracker
 # -*- coding: utf-8 -*-
 
-import Tkinter as tk	# 'Tkinter' for win7
-#import tkinter as tk	# 'tkinter' for win10
+#import Tkinter as tk	# 'Tkinter' for win7
+import tkinter as tk	# 'tkinter' for win10
 import os, re, time
 
 main_width  = 300
@@ -65,7 +65,7 @@ def center_window(root, width, height):
 
 root = tk.Tk()
 root.title('Cracker')
-root.iconbitmap("C:\\Users\\Administrator\\Desktop\\Cracker\\logo.ico")
+root.iconbitmap("..\\logo.ico")
 center_window(root, main_width, main_height)
 root.maxsize(main_width, main_height)
 root.minsize(main_width, main_height)
