@@ -65,7 +65,7 @@ def center_window(root, width, height):
 
 root = tk.Tk()
 root.title('Cracker')
-root.iconbitmap("..\\logo.ico")
+root.iconbitmap("logo.ico")
 center_window(root, main_width, main_height)
 root.maxsize(main_width, main_height)
 root.minsize(main_width, main_height)
