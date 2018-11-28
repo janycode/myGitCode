@@ -1,0 +1,18 @@
+Package Version:Digicel_Jamaica_HH41NH_MF_02.00_02_20181106
+Cu-Ref:HH41NH-2BC9JM1-1
+MainBoard Version:HH41NH_MF_02.00_02
+SmallBoard Version:HH41NH_MF_02.00_02
+PTS Number:
+TPST Version:TPST_TPW0070000
+Online index:HH41NH-2XMF000
+Online update:Support
+Simlock:SIMLock
+Security mode:WPA/WPA2
+Security code rule:last eight digits of MAC 
+SSID:Digicel_xxxx last 4 digits of MAC Address
+Release Date:2018/11/06
+Killed Bugs:
+1．7072440，[Customization] Please Help correct Software and Modem Version
+Change the sw version number as : HH41_MF_02.00_02
+2．Implemented the FORCE FOTA feature
+3.  Implemented the issues from QA

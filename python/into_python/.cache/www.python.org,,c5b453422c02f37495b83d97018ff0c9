@@ -1,0 +1,17 @@
+status: 301
+server: Varnish
+retry-after: 0
+location: https://www.python.org/
+content-length: 0
+accept-ranges: bytes
+date: Fri, 02 Nov 2018 07:19:22 GMT
+via: 1.1 varnish
+connection: close
+x-served-by: cache-tyo19951-TYO
+x-cache: HIT
+x-cache-hits: 0
+x-timer: S1541143163.852585,VS0,VE0
+strict-transport-security: max-age=63072000; includeSubDomains
+-x-permanent-redirect-url: https://www.python.org/
+content-location: http://www.python.org/
+

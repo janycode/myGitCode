@@ -1,0 +1,4 @@
+[CRITICAL]:\troot:\tHost www.python.org unkown
+[ERROR]:\troot:\tCouldn't find 'spam'
+[WARNING]:\troot:\tFeature is deprecated
+[INFO]:\troot:\tOpening file 'data.csv', mode = 'r'

@@ -1,0 +1,3 @@
+
+def custom():
+	print ('custom...')

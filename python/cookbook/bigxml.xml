@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<response>
+<row>
+<row ...>
+<creation_date>2012-11-18T00:00:00</creation_date>
+<status>Completed</status>
+<completion_date>2012-11-18T00:00:00</completion_date>
+<service_request_number>12-01906549</service_request_number>
+<type_of_service_request>Pot Hole in Street</type_of_service_
+,!request>
+<current_activity>Final Outcome</current_activity>
+<most_recent_action>CDOT Street Cut ... Outcome</most_recent_
+,!action>
+<street_address>4714 S TALMAN AVE</street_address>
+<zip>60632</zip>
+<x_coordinate>1159494.68618856</x_coordinate>
+<y_coordinate>1873313.83503384</y_coordinate>
+<ward>14</ward>
+<police_district>9</police_district>
+<community_area>58</community_area>
+<latitude>41.808090232127896</latitude>
+<longitude>-87.69053684711305</longitude>
+<location latitude="41.808090232127896"
+longitude="-87.69053684711305" />
+</row>
+<row ...>
+<creation_date>2012-11-18T00:00:00</creation_date>
+<status>Completed</status>
+<completion_date>2012-11-18T00:00:00</completion_date>
+<service_request_number>12-01906695</service_request_number>
+<type_of_service_request>Pot Hole in Street</type_of_service_
+,!request>
+<current_activity>Final Outcome</current_activity>
+<most_recent_action>CDOT Street Cut ... Outcome</most_recent_
+,!action>
+<street_address>3510 W NORTH AVE</street_address>
+<zip>60647</zip><x_coordinate>1152732.14127696</x_coordinate>
+<y_coordinate>1910409.38979075</y_coordinate>
+<ward>26</ward>
+<police_district>14</police_district>
+<community_area>23</community_area>
+<latitude>41.91002084292946</latitude>
+<longitude>-87.71435952353961</longitude>
+<location latitude="41.91002084292946"
+longitude="-87.71435952353961" />
+</row>
+</row>
+</response>

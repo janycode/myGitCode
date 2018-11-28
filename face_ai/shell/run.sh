@@ -87,7 +87,7 @@ function send_post_request()
 	elif [ -n "$2" ]; then
 		post_request_path=${face_match_post_path}"?access_token="${access_token}
 		echo -e "-------------------------------\nBaidu face match response as follow:"
-		response=`curl -s -H "Content-Type:application/x-www-form-urlencoded" --data "images=" --data @${base64_file} ${post_request_path}`
+		response=`curl -s -H "Content-Type:application/x-www-form-urlencoded" --data-urlencode "images" --data "=" --data-urlencode @"${base64_file}" ${post_request_path}`
 #		response=`curl -s -X POST -k -H "Content-Type:application/x-www-form-urlencoded" --data "images=" --data-urlencode @${urlencode_file} -i ${post_request_path}`
 	else
 		echo "The param error...please check."

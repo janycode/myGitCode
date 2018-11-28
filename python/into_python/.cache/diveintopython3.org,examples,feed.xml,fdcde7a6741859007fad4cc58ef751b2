@@ -1,0 +1,18 @@
+status: 200
+cache-control: no-cache
+pragma: no-cache
+content-type: text/html; charset=utf-8
+expires: -1
+vary: Accept-Encoding
+server: Microsoft-IIS/7.5
+x-aspnet-version: 4.0.30319
+x-powered-by: ASP.NET
+date: Mon, 05 Nov 2018 02:25:37 GMT
+content-length: 381
+age: 0
+connection: keep-alive
+-content-encoding: gzip
+content-location: http://diveintopython3.org/examples/feed.xml
+-varied-accept-encoding: gzip, deflate
+
+<!-- Server: P3PWPARKSTAT06 --><!DOCTYPE html><body style="padding:0; margin:0;"><html><body><iframe src="http://mcc.godaddy.com/park/pKMcpaMuM2WwoTq1LzRmYzWyqN==" style="visibility: visible;height: 100%; position:absolute" allowtransparency="true" marginheight="0" marginwidth="0" frameborder="0" width="100%"></iframe></body></html><!-- T: 2128 --><!-- Server: P3PWPARKSTAT06 -->

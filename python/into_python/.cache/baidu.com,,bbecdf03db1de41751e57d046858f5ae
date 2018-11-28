@@ -1,0 +1,16 @@
+status: 200
+date: Mon, 05 Nov 2018 02:49:03 GMT
+server: Apache
+last-modified: Tue, 12 Jan 2010 13:48:00 GMT
+etag: "51-47cf7e6ee8400"
+accept-ranges: bytes
+content-length: 81
+cache-control: max-age=86400
+expires: Tue, 06 Nov 2018 02:49:03 GMT
+connection: Keep-Alive
+content-type: text/html
+content-location: http://baidu.com/
+
+<html>
+<meta http-equiv="refresh" content="0;url=http://www.baidu.com/">
+</html>

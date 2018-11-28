@@ -16,7 +16,7 @@ Face detection
 image_file = "image/0.jpg"
 
 API_KEY = "8WRsAAo2AWGUtuT4GI1LZwbz"				#AK
-SECRET_KEY = "aIUxawGasEKlF3inR7PtedVnENYGGOTD"	#SK
+SECRET_KEY = "aIUxawGasEKlF3inR7PtedVnENYGGOTD"		#SK
 request_url = "https://aip.baidubce.com/rest/2.0/face/v1/detect"
 
 def get_access_token():

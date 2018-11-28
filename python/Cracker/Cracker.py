@@ -1,7 +1,7 @@
 # Author	: yuan.jiang
 # Date		: 2018.04.02
 # Language  : python
-# Filename	£ºCracker
+# Filename	: Cracker
 # -*- coding: utf-8 -*-
 
 #import Tkinter as tk	# 'Tkinter' for win7
