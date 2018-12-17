@@ -2,6 +2,7 @@
 # Author: yuan.jiang
 # Data: 2018.11.23
 # Description: Make package for TMC version(TA)
+# Notice: 实际运行或打包exe文件时需删除包含中文字符所有行，包括注释行。
 
 import os
 import time
@@ -28,11 +29,13 @@ while True:
     if next_flag == "Y" or next_flag == "y":
         break
 '''
+# input()用于python3，在打包exe的时候用的python2智能使用raw_input()
 while True:
     version_dir_name = raw_input (">>> input version: ")
     pts_num          = raw_input (">>> input PTS num: ")
     cu_ref           = raw_input (">>> input CU  Ref: ")
     next_flag        = raw_input ("Yes for next[Y]; Back for reinput[N]:")
+    # 考虑使用习惯，兼容大小写
     if next_flag == "Y" or next_flag == "y":
         break
 
@@ -44,17 +47,17 @@ print ("CU    Ref: {}\n".format(cu_ref))
 copyFileCounts = 0
 
 def parse_version_param(name):
-    name_list = name.split('_')
-    param_list = list(reversed(name_list))
+    name_list = name.split('_')                 #以_分隔字符串
+    param_list = list(reversed(name_list))      #反序列表中的元素
     print ("param_list: {}".format(param_list))
     return param_list
 
 
 def find_project_path(param_list):
     print ("\n>>> Find_project_path")
-    current_path = os.getcwd()
+    current_path = os.getcwd()                                      #获取当前工作路径
     project_path_name = param_list[3] + '_' + param_list[0]
-    project_path = os.path.join(current_path, project_path_name)
+    project_path = os.path.join(current_path, project_path_name)    #组合文件名到路径末尾生成完整的文件路径
     
     print ("current_path: {}".format(current_path))
     print ("project_path_name: {}".format(project_path_name))
@@ -65,7 +68,7 @@ def find_project_path(param_list):
 
 def find_version_path(project_path, version_name):
     print ("\n>>> Find_version_path")
-    version_path = os.path.join(project_path, version_name)
+    version_path = os.path.join(project_path, version_name)     #组合文件名到路径末尾生成完整的文件路径
 
     print ("version_path: {}".format(version_path))
     return version_path
@@ -76,22 +79,22 @@ def create_ta_package_dir(project_path, param_list):
     ta_package=param_list[0]+'_'+param_list[1]+param_list[2]+'_'+param_list[3]+ \
                 '_'+param_list[4]+'_'+param_list[5]+'_P'+param_list[6]+'_'+ \
                 param_list[7]+'_'+param_list[8]
-    ta_package_path = os.path.join(project_path, ta_package)
+    ta_package_path = os.path.join(project_path, ta_package)    #组合文件名到路径末尾生成完整的文件路径
 
     print ("ta_package: {}".format(ta_package))
     print ("ta_package_path: {}".format(ta_package_path))
 
-    os.chdir(project_path)
+    os.chdir(project_path)                                      #改变当前工作目录
 
-    if os.path.exists(ta_package):
+    if os.path.exists(ta_package):                              #判断文件/文件夹是否存在
         print ("TA package is existed...needn't to create.")
     else:
-        os.mkdir(ta_package_path)        # need open it.
+        os.mkdir(ta_package_path)
         print ("TA package is created successfully.")
 
     return ta_package_path
 
-
+#未调用
 def zip_ya(startdir,file_news):
 
     z = zipfile.ZipFile(file_news,'a',zipfile.ZIP_DEFLATED)
@@ -103,7 +106,7 @@ def zip_ya(startdir,file_news):
             print ('zip [{}] success'.format(filename))
     z.close()
 
-
+#未调用
 def judge_rar_version_pkg(ver_path):
     print ("\n>>> Judge_rar_version_pkg")
 
@@ -135,13 +138,13 @@ def judge_rar_version_pkg(ver_path):
 
 
 def copy_files(sourceDir, targetDir):
-    global copyFileCounts
+    global copyFileCounts                           #全局统计拷贝文件数量
     print ("sourceDir: {}".format(sourceDir))
-    for f in os.listdir(sourceDir):
+    for f in os.listdir(sourceDir):                 #遍历路径(参数)下所有文件
         sourceF = os.path.join(sourceDir, f)
         targetF = os.path.join(targetDir, f)
 
-        if os.path.isfile(sourceF):
+        if os.path.isfile(sourceF):                 #判断是否存在该文件，路径中如果有中文需要转换编码格式eg：os.path.isfile(u'D:\\文件.txt')
             #create dir
             if not os.path.exists(targetDir):
                 os.makedirs(targetDir)
@@ -149,26 +152,26 @@ def copy_files(sourceDir, targetDir):
 
             #Cover
             if not os.path.exists(targetF) or (os.path.exists(targetF) and (os.path.getsize(targetF) != os.path.getsize(sourceF))):
-                open(targetF, "wb").write(open(sourceF, "rb").read())
-                print ("{} {} copy complete.".format(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())), targetF))
+                open(targetF, "wb").write(open(sourceF, "rb").read())       #从源文件中以二进制读取的内容作为写入目标文件的缓冲信息实现单文件拷贝
+                print ("{} {} copy complete.".format(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())), targetF))  #log中时间打印
                 print ("Copying... Please have a rest...")
             else:
                 print ("{} {} file is existed.".format(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())), targetF))
 
         if os.path.isdir(sourceF):
             #continue FotaImage dir
-            if "FotaImage" in sourceF:
+            if "FotaImage" in sourceF:              #判断不需要拷贝的目录，进行跳过
                 continue
             else:
-                copy_files(sourceF, targetF)
+                copy_files(sourceF, targetF)        #递归遍历目录下所有文件
 
     print (u"{} Do dir number {}, done {} files".format(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())), sourceDir, copyFileCounts))
 
 
 def touch_pts_txt(ta_package_path):
     print ("\n>>> Touch_pts_txt")    
-    pts_filename = "PTS" + pts_num + ".txt"
-    pts_file = os.path.join(ta_package_path, pts_filename)
+    pts_filename = "PTS" + pts_num + ".txt"                 #来自程序接收的输入信息，全局变量
+    pts_file = os.path.join(ta_package_path, pts_filename)  #组文件的完整路径
     print ("pts file: {}".format(pts_file))
 
     with open(pts_file, 'w') as f:
@@ -177,8 +180,9 @@ def touch_pts_txt(ta_package_path):
 
     return pts_filename
 
+#zip压缩接口Begin: zipCompress()
 def addFileIntoZipfile(srcDir, fp):
-    if os.path.isfile(srcDir): #file, do zip
+    if os.path.isfile(srcDir):              #file, do zip
         fp.write(srcDir)
     else:
         for subpath in os.listdir(srcDir):  #all files
@@ -192,14 +196,15 @@ def addFileIntoZipfile(srcDir, fp):
 def zipCompress(srcDir, desZipfile):
     with zipfile.ZipFile(desZipfile, mode='a') as fp:
         addFileIntoZipfile(srcDir, fp)
+#zip压缩接口End: zipCompress()
 
 def add_simlock_config(version_path, package_name):
     print ("\n>>> Add_simlock_config") 
-    db_file = version_path + r"\FotaImage\jrd_resource\resource\sqlite3\factory_info.db3"
+    db_file = version_path + r"\FotaImage\jrd_resource\resource\sqlite3\factory_info.db3"       #原始路径加r，防止识别转移字符
     print ("db_file: {}".format(db_file))
-    db = sqlite3.connect (db_file)
+    db = sqlite3.connect (db_file)                                                              #连接sqlite3数据库文件
 
-    for item in db.execute ("select * from sim_config where items='NetworkCode'"):
+    for item in db.execute ("select * from sim_config where items='NetworkCode'"):              #执行sqlite3数据库命令，返回一个结果列表
         simlock_plmn = item[1]
         print ("simlock_plmn: {}".format(simlock_plmn))
     
@@ -209,20 +214,21 @@ def add_simlock_config(version_path, package_name):
     else:
         print ("Normal simlock!!! simlock PLMN={}".format(simlock_plmn))
         print ("DEBUG:current path = {}".format(os.getcwd()))
-        os.mkdir("Simlock")
+        os.mkdir("Simlock")                                                                     #创建目录
         #os.chdir(os.path.join(os.getcwd(), package_name))
         simlock_file = "Simlock/simlock.cfg"
 
-        with open(simlock_file, 'w') as f:
+        with open(simlock_file, 'w') as f:                                                      #创建可写入文件
             f.write('#' + package_name + '\n')
             f.write('[CODE]\n')
             f.write('PN=' + simlock_plmn + '\n')
             f.write('PU=NULL\n' + 'PP=NULL\n' + 'PC=NULL\n' + 'PF=NULL\n\n')
             f.write('[ACTION]\n' + 'PN=2\n' + 'PU=0\n' + 'PP=0\n' + 'PC=0\n' + 'PF=0\n')
         
-        if os.path.exists(simlock_file):
+        if os.path.exists(simlock_file):                                                        #判断写入文件是否存在
             print ("Simlock config file create success...")
 
+#md5生成接口Begin：generate_file_md5()
 def generate_file_md5(fpath):
     '''return md5 value'''
     m = md5()
@@ -230,15 +236,18 @@ def generate_file_md5(fpath):
     m.update(a_file.read())
     a_file.close()
     return m.hexdigest()
+#md5生成接口End：generate_file_md5()
 
 def delete_other_files(dir_name):
     print ("\n>>> Delete_other_files")
     files = os.listdir(ta_package_path)
     for file in files:
+        #如果是目录则删除目录下所有文件: shutil.rmtree(dir)
         if os.path.isdir(file) and file == "Simlock":
             #os.rmdir(file) # If dir is not null, then it occurs OSError
             shutil.rmtree(file)
             print ("Delete [{}] success...".format(file))
+        #如果是指定文件后缀则进行对应删除: file.endswith(".xxx")
         if file.endswith(".xlsx") or file.endswith(".txt") or file.endswith(".doc") or file.endswith(".MD5") or file.endswith('.xml'):
             os.remove(file)
             print ("Delete [{}] success...".format(file))
@@ -252,13 +261,13 @@ def copy_files_and_append_zip(version_path, ta_package_path):
     copy_files(version_path, ta_package_path)
 
     #config.xml
-    cfg_src_path = os.path.join(version_path, r"FotaImage\config.xml")
+    cfg_src_path = os.path.join(version_path, r"FotaImage\config.xml")      #将文件组到完整路径中
     cfg_dst_path = ta_package_path
     print ("config.xml src path: {}".format(cfg_src_path))
     print ("config.xml dst path: {}".format(ta_package_path))
-    shutil.copy(cfg_src_path, cfg_dst_path)
+    shutil.copy(cfg_src_path, cfg_dst_path)                                 #拷贝单个文件shutil.copy(sourceF, destF)
 
-    (package_path, ta_package_name) = os.path.split(ta_package_path)
+    (package_path, ta_package_name) = os.path.split(ta_package_path)        #拆分文件名与路径，与os.path.join()刚好相反
     print ("ta path1: {}".format(package_path))
     print ("ta name: {}".format(ta_package_name))
     ta_package_name = ta_package_name + ".zip"
@@ -273,7 +282,7 @@ def copy_files_and_append_zip(version_path, ta_package_path):
             #shutil.unpack_archive(zipfile) #unzip
             #os.remove(zipfile)
             
-            os.rename(file, ta_package_name)
+            os.rename(file, ta_package_name)                                #修改文件名之前最好修改当前工作目录
             ta_zip_file_path = os.path.join(ta_package_path, ta_package_name)
             print ("ta_zip_file_path: {}".format(ta_zip_file_path))
 
@@ -289,8 +298,12 @@ def copy_files_and_append_zip(version_path, ta_package_path):
 
             cfg_xml_file_md5 = generate_file_md5(config_xml).upper()
             print ("config.xml md5: {}".format(cfg_xml_file_md5))
-            with open(test_md5, 'a') as f:
-                f.write(cfg_xml_file_md5 + '\t' + config_xml)
+            with open(test_md5, 'a+') as f:                                 #a+模式，即可读也可以追加内容
+                test_md5_content = f.read()
+                if "config.xml" in test_md5_content:
+                    print ("config.xml md5 value has writen in test.MD5.")
+                else:
+                    f.write(cfg_xml_file_md5 + '\t' + config_xml)
 
             if os.path.isdir(simlock_dir):
                 zipCompress(simlock_dir, ta_zip_file_path)
@@ -338,6 +351,5 @@ if __name__ == '__main__':
    
     copy_files_and_append_zip(version_path, ta_package_path)
 
-    end_flag = raw_input (">>> press [Enter] to exit...")
+    end_flag = raw_input (">>> press [Enter] to exit...")                   #For package .exe file by raw_input() function.
     #end_flag = input (">>> press [Enter] to exit...")
-
