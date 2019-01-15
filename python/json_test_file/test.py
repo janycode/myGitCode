@@ -1,6 +1,6 @@
 
-s_path = r"C:\Users\Jan\Desktop\json_test_file"
-d_path = r"C:\Users\Jan\Desktop\json_tmp"
+s_path = r"J:\myGitCode\python\json_test_file\json_test_file"
+d_path = r"J:\myGitCode\python\json_test_file\json_tmp"
 string = "\"req\""
 result = []
 
