@@ -1,0 +1,2 @@
+2019-01-22 15:34:33,921 - ERROR - 02_logging_4module.py[:27] - error message
+2019-01-22 15:34:33,921 - CRITICAL - 02_logging_4module.py[:28] - critical message

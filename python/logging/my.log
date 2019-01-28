@@ -1,0 +1,5 @@
+01/22/2019 15:26:24 PM - WARNING - Jan[47.98.53.222] - This is a warning log.
+NoneType: None
+Stack (most recent call last):
+  File "./01_logging.py", line 26, in <module>
+    logging.warning("This is a warning log.", exc_info=True, stack_info=True, extra=user_ip)

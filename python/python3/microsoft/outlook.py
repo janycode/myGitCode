@@ -2,14 +2,13 @@
 # @Author: yuan.jiang
 # @Date:   2019-01-05 17:34:29
 # @Last Modified by:   yuan.jiang
-# @Last Modified time: 2019-01-05 18:14:28
+# @Last Modified time: 2019-01-28 11:28:48
 from tkinter import Tk
 from tkinter.messagebox import showwarning
 import win32com.client as win32
 
 # 收件人列表
 receiverList = ['yuan.jiang@jrdcom.com']
-
 
 # 邮件签名
 signContent = [

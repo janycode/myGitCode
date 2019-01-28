@@ -1,0 +1,5 @@
+2019-01-22 15:34:33,920 - DEBUG - debug message
+2019-01-22 15:34:33,921 - INFO - info message
+2019-01-22 15:34:33,921 - WARNING - warning message
+2019-01-22 15:34:33,921 - ERROR - error message
+2019-01-22 15:34:33,921 - CRITICAL - critical message
