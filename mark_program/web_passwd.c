@@ -7,12 +7,12 @@ static char admin_dic[]=
 'x','y'};
 
 static unsigned long long randseed;
-static void jrd_rand_init_seed(char* seed)
+static void jan_rand_init_seed(char* seed)
 {
     randseed = atoll(seed);
 }
 
-static unsigned long long jrd_rand(void)
+static unsigned long long jan_rand(void)
 {
     unsigned long long r;
     
@@ -22,17 +22,17 @@ static unsigned long long jrd_rand(void)
 }
 
 
-int jrd_get_hub_random_string_algo(char *rand_str, int rand_str_len, char *imei, char *dic, int dic_size)
+int jan_get_hub_random_string_algo(char *rand_str, int rand_str_len, char *imei, char *dic, int dic_size)
 {
     int i, idx;
     if(rand_str == NULL || imei == NULL || dic == NULL) return -1;
     
     /*init the rand_seed by imei*/ 
-    jrd_rand_init_seed(imei);
+    jan_rand_init_seed(imei);
     
     for(i=0; i<rand_str_len; i++)
     {
-        idx = jrd_rand() % dic_size;
+        idx = jan_rand() % dic_size;
         rand_str[i] = dic[idx];
         
     /*avoid rand_str include the same words be neighbor like "aa" "33" */    
@@ -49,7 +49,7 @@ int main (int argc, char *argv[]) {
 	char pwd[32] = {0};
 	printf ("IMEI = %s\n", argv[1]);
 
-	jrd_get_hub_random_string_algo(pwd, 8, argv[1], admin_dic, sizeof(admin_dic)/sizeof(admin_dic[0]));
+	jan_get_hub_random_string_algo(pwd, 8, argv[1], admin_dic, sizeof(admin_dic)/sizeof(admin_dic[0]));
 	printf ("pwd = %s\n", pwd);
 	return 0;
 }

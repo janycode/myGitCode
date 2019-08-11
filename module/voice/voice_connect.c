@@ -17,11 +17,11 @@
 #include <sys/socket.h>
 #include <sys/un.h>
 
-#include "jrd_voice_connect.h"
+#include "jan_voice_connect.h"
 
 
 /*===========================================================================
-  Function:  jrd_voice_connect_send_msg
+  Function:  jan_voice_connect_send_msg
 ===========================================================================*/
 /*!
 @brief
@@ -34,7 +34,7 @@
   None.
 */
 /*=========================================================================*/
-int jrd_voice_connect_send_msg(e_jrd_voice_socket_server_type_t server_type, jrd_voice_socket_msg_t *msg)
+int jan_voice_connect_send_msg(e_jan_voice_socket_server_type_t server_type, jan_voice_socket_msg_t *msg)
 {
     struct sockaddr_un server_addr;
     int connect_fd;
@@ -61,7 +61,7 @@ int jrd_voice_connect_send_msg(e_jrd_voice_socket_server_type_t server_type, jrd
     }
 
     /* Send the msg to server. */
-    write(connect_fd, (char *)msg, sizeof(jrd_voice_socket_msg_t));
+    write(connect_fd, (char *)msg, sizeof(jan_voice_socket_msg_t));
     
     close(connect_fd);
     return 0;

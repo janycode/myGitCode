@@ -9,6 +9,6 @@ import smtplib
 smtp = smtplib.SMTP()
 smtp.connect("smtp.yeah.net", "25")
 smtp.login('usr', 'pwd')
-smtp.sendmail('yuan.jiang@jrdcom.com', 'yuqi.wu@jrdcom.com',
-              'From: yuan.jiang@jrdcom.com\r\nTo: yuqi.wu@jrdcom.com\r\nSubject: This is a email form python demo.\r\n\r\nJust have a test!~~')
+smtp.sendmail('yuan.jiang@jancom.com', 'yuqi.wu@jancom.com',
+              'From: yuan.jiang@jancom.com\r\nTo: yuqi.wu@jancom.com\r\nSubject: This is a email form python demo.\r\n\r\nJust have a test!~~')
 smtp.quit()

@@ -12,7 +12,7 @@
 #define _JRD_VOICE_DATASTORE_H_
 
 
-typedef void (*jrd_voice_datastore_cb)(int item_count, char** item_value, char** item_name);
+typedef void (*jan_voice_datastore_cb)(int item_count, char** item_value, char** item_name);
 
 
 #ifdef __cplusplus
@@ -20,7 +20,7 @@ extern "C" {
 #endif
 
 /*===========================================================================
-  Function:  jrd_voice_datastore_insert
+  Function:  jan_voice_datastore_insert
 ===========================================================================*/
 /*!
 @brief
@@ -33,11 +33,11 @@ extern "C" {
   None.
 */
 /*=========================================================================*/
-extern int jrd_voice_datastore_insert(jrd_voice_call_record_t *record, int limit_num);
+extern int jan_voice_datastore_insert(jan_voice_call_record_t *record, int limit_num);
 
 
 /*===========================================================================
-  Function:  jrd_voice_datastore_limit
+  Function:  jan_voice_datastore_limit
 ===========================================================================*/
 /*!
 @brief
@@ -50,11 +50,11 @@ extern int jrd_voice_datastore_insert(jrd_voice_call_record_t *record, int limit
   None.
 */
 /*=========================================================================*/
-int jrd_voice_datastore_limit(jrd_voice_call_record_t *record, int limit_num);
+int jan_voice_datastore_limit(jan_voice_call_record_t *record, int limit_num);
 
 
 /*===========================================================================
-  Function:  jrd_voice_datastore_delete
+  Function:  jan_voice_datastore_delete
 ===========================================================================*/
 /*!
 @brief
@@ -67,11 +67,11 @@ int jrd_voice_datastore_limit(jrd_voice_call_record_t *record, int limit_num);
   None.
 */
 /*=========================================================================*/
-extern int jrd_voice_datastore_delete(int id);
+extern int jan_voice_datastore_delete(int id);
 
 
 /*===========================================================================
-  Function:  jrd_voice_datastore_clear
+  Function:  jan_voice_datastore_clear
 ===========================================================================*/
 /*!
 @brief
@@ -84,11 +84,11 @@ extern int jrd_voice_datastore_delete(int id);
   None.
 */
 /*=========================================================================*/
-extern int jrd_voice_datastore_clear(void);
+extern int jan_voice_datastore_clear(void);
 
 
 /*===========================================================================
-  Function:  jrd_voice_datastore_init
+  Function:  jan_voice_datastore_init
 ===========================================================================*/
 /*!
 @brief
@@ -101,7 +101,7 @@ extern int jrd_voice_datastore_clear(void);
   None.
 */
 /*=========================================================================*/
-extern int jrd_voice_datastore_init(jrd_voice_datastore_cb ptr_cb);
+extern int jan_voice_datastore_init(jan_voice_datastore_cb ptr_cb);
 
 
 #ifdef __cplusplus

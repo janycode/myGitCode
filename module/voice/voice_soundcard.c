@@ -15,8 +15,8 @@
 #include <fcntl.h>
 #include <linux/types.h>
 
-#include "jrd_oem.h"
-#include "jrd_voice_soundcard.h"
+#include "jan_oem.h"
+#include "jan_voice_soundcard.h"
 
 #define JRD_VOICE_SOUNDCARD_PATH "/proc/asound/mdm9607tomtomi2"
 
@@ -35,7 +35,7 @@
 #define JRD_VOICE_VOLTE_PCM_NODE_REC "arec -D hw:0,4 -P -R 8000 -C 1 &"
 
 /*===========================================================================
-  Function:  jrd_voice_soundcard_exist
+  Function:  jan_voice_soundcard_exist
 ===========================================================================*/
 /*!
 @brief
@@ -48,7 +48,7 @@
   None.
 */
 /*=========================================================================*/
-static int jrd_voice_soundcard_exist(void)
+static int jan_voice_soundcard_exist(void)
 {
     int count = 0;
 
@@ -74,7 +74,7 @@ static int jrd_voice_soundcard_exist(void)
 
 
 /*===========================================================================
-  Function:  jrd_voice_soundcard_pcm_output
+  Function:  jan_voice_soundcard_pcm_output
 ===========================================================================*/
 /*!
 @brief
@@ -87,7 +87,7 @@ static int jrd_voice_soundcard_exist(void)
   None.
 */
 /*=========================================================================*/
-static void jrd_voice_soundcard_pcm_output(void)
+static void jan_voice_soundcard_pcm_output(void)
 {
     char command[128] = {0};
     FILE *fp = NULL;
@@ -123,7 +123,7 @@ static void jrd_voice_soundcard_pcm_output(void)
 
 
 /*===========================================================================
-  Function:  jrd_voice_soundcard_aplay_detect
+  Function:  jan_voice_soundcard_aplay_detect
 ===========================================================================*/
 /*!
 @brief
@@ -136,7 +136,7 @@ static void jrd_voice_soundcard_pcm_output(void)
   None.
 */
 /*=========================================================================*/
-static int jrd_voice_soundcard_process_detect(char *process_name)
+static int jan_voice_soundcard_process_detect(char *process_name)
 {
     FILE *f_ptr = NULL;
     char *pid_ptr = NULL;
@@ -189,7 +189,7 @@ static int jrd_voice_soundcard_process_detect(char *process_name)
 
 
 /*===========================================================================
-  Function:  jrd_voice_soundcard_init
+  Function:  jan_voice_soundcard_init
 ===========================================================================*/
 /*!
 @brief
@@ -202,21 +202,21 @@ static int jrd_voice_soundcard_process_detect(char *process_name)
   None.
 */
 /*=========================================================================*/
-int jrd_voice_soundcard_init(void)
+int jan_voice_soundcard_init(void)
 {
     int rc = 0;
 
-    rc = jrd_voice_soundcard_exist();
+    rc = jan_voice_soundcard_exist();
     if (rc < 0) {
         printf("%s(): Error, soundcard cann't init.\n", __func__);
         return -1;
     }
 
     /* Config, PCM waveform output. */
-    rc = jrd_voice_soundcard_process_detect("aplay");
+    rc = jan_voice_soundcard_process_detect("aplay");
     if (rc == 1) {
         /* Process: "aplay -D hw:0,2 -P" not exist. */
-        jrd_voice_soundcard_pcm_output();
+        jan_voice_soundcard_pcm_output();
     } else if (rc == 0) {
         /* Process: "aplay -D hw:0,2 -P" is exist. */
     } else {

@@ -94,7 +94,7 @@ function add_simlock_config ()
 {
 	echo ">>> add_simlock_config"
 
-	factory_db=$version_str"/FotaImage/jrd_resource/resource/sqlite3/factory_info.db3"
+	factory_db=$version_str"/FotaImage/jan_resource/resource/sqlite3/factory_info.db3"
 	simlock_plmns=`sqlite3 $factory_db "select * from sim_config;" | grep "NetworkCode" | cut -d '|' -f 2`
 	echo "simlock_plmns: $simlock_plmns"
 

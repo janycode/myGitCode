@@ -8,7 +8,7 @@ from tkinter.messagebox import showwarning
 import win32com.client as win32
 
 # 收件人列表
-receiverList = ['yuan.jiang@jrdcom.com']
+receiverList = ['yuan.jiang@jancom.com']
 
 # 邮件签名
 signContent = [
@@ -31,8 +31,8 @@ def outlook():
     mail = olook.CreateItem(win32.constants.olMailItem)
 
     # 加入收件人
-    # recip = mail.Recipients.Add('yuqi.wu@jrdcom.com')
-    # recip = mail.Recipients.Add('yuan.jiang@jrdcom.com')
+    # recip = mail.Recipients.Add('yuqi.wu@jancom.com')
+    # recip = mail.Recipients.Add('yuan.jiang@jancom.com')
     for i in range(len(receiverList)):
         mail.Recipients.Add(receiverList[i])
 

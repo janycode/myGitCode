@@ -22,7 +22,7 @@ extern "C" {
 
 
 /*===========================================================================
-  Function:  jrd_slic_soundcard_init
+  Function:  jan_slic_soundcard_init
 ===========================================================================*/
 /*!
 @brief
@@ -35,7 +35,7 @@ extern "C" {
   None.
 */
 /*=========================================================================*/
-int jrd_slic_soundcard_init(void);
+int jan_slic_soundcard_init(void);
 
 
 #ifdef __cplusplus

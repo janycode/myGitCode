@@ -160,11 +160,11 @@ SetWanAccess
 setDNSInfo
 getDNSInfo
 trance_file
-jrd_diag_led_handle
-jrd_reset_key_ind
+jan_diag_led_handle
+jan_reset_key_ind
 setLedTestmode
 setKeyTestmode
-jrd_syn_trace
+jan_syn_trace
 ethWanStatus
 GetCallLogList
 DeleteCallLog

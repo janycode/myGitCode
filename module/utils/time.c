@@ -9,8 +9,8 @@
   None.
 
   ---------------------------------------------------------------------------
-  Copyright (c) 2012-2015 jrd Incorporated.
-  All Rights Reserved. jrd Proprietary and Confidential.
+  Copyright (c) 2012-2015 jan Incorporated.
+  All Rights Reserved. jan Proprietary and Confidential.
   ---------------------------------------------------------------------------
 ******************************************************************************/
 
@@ -31,7 +31,7 @@ when       who            what, where, why
 #include <stdio.h>
 #include <time.h>
 #include "time.h"
-#include "jrd_oem.h"
+#include "jan_oem.h"
 
 /*********************************** Locals ***********************************/
 #define TIME_JUL_OFFSET_S                 432000UL
@@ -403,7 +403,7 @@ uint32 change_time_to_sms_span(char * time_str)
    return tim_span;
 }
 
-void jrd_qmi_timestamp_to_secs
+void jan_qmi_timestamp_to_secs
 ( 
  wms_timestamp_s_type  time,  /* Pointer to Time Stamp        */
  uint32 *time_stick 
@@ -436,7 +436,7 @@ void jrd_qmi_timestamp_to_secs
     JRD_OEM_LOG_INFO(JRD_OEM_LOG_LOW, "CONNIE: new_msg_node->node.time:%d\n",*time_stick);
 }
 
-void   jrd_qmi_secs_to_timestamp
+void   jan_qmi_secs_to_timestamp
 (
  uint32 time_stick,
  wms_timestamp_s_type *time

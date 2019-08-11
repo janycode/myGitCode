@@ -8,11 +8,11 @@
 *
 ****************************************************************************/
 
-#include "jrd_oem.h"
-#include "jrd_oem_common.h"
+#include "jan_oem.h"
+#include "jan_oem_common.h"
 
-#include "jrd_slic.h"
-#include "jrd_voice_core.h"
+#include "jan_slic.h"
+#include "jan_voice_core.h"
 
 
 #define JRD_VOICE_SLIC_SPIDEV  "/dev/spidev1.0"
@@ -31,13 +31,13 @@
 #define JRD_VOICE_DEBUG
 #define JRD_VOICE_STATUS_DEBUG
 
-typedef struct jrd_voice_data_struct {
-    jrd_slic_device_t *slic_dev;
-    e_jrd_slic_device_t dev_state;
+typedef struct jan_voice_data_struct {
+    jan_slic_device_t *slic_dev;
+    e_jan_slic_device_t dev_state;
     timer_info_t call_timer;
 
-    e_jrd_voice_core_status_t curr_status;
-    e_jrd_voice_core_status_t late_status;
+    e_jan_voice_core_status_t curr_status;
+    e_jan_voice_core_status_t late_status;
     char call_num[JRD_VOICE_CALL_OUT_NUMBER];
     char dtmf_num;
     int len;
@@ -47,12 +47,12 @@ typedef struct jrd_voice_data_struct {
     int is_online;
     time_t previous_time;
     ordered_list_type total, missed, incoming, outgoing;
-    jrd_voice_call_record_count_info_t count_info;
+    jan_voice_call_record_count_info_t count_info;
 
     unsigned int id_mask[4];
-} jrd_voice_data_t;
+} jan_voice_data_t;
 
-static jrd_voice_data_t g_voice_data = {0};
+static jan_voice_data_t g_voice_data = {0};
 static long timezone_diff = 0;
 
 #define JRD_VOICE_ID_MASK_BIT_SET(val, bit) ((val)[((bit) / 32)] & (1 << ((bit) % 32)))
@@ -68,7 +68,7 @@ static long timezone_diff = 0;
 
 #ifdef JRD_VOICE_DEBUG
 /*===========================================================================
-  Function:  jrd_voice_core_show_node
+  Function:  jan_voice_core_show_node
 ===========================================================================*/
 /*!
 @brief
@@ -81,11 +81,11 @@ static long timezone_diff = 0;
   None.
 */
 /*=========================================================================*/
-static int jrd_voice_core_show_node(void)
+static int jan_voice_core_show_node(void)
 {
     char tmp_buf[32] = {0};
     ordered_list_link_type *list_node_link = NULL;
-    jrd_voice_call_record_t *record_ptr = NULL;
+    jan_voice_call_record_t *record_ptr = NULL;
 
     JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Info, total = %d.\n", ordered_list_size(&g_voice_data.total));
     if (ordered_list_size(&g_voice_data.total) > 0) {
@@ -93,7 +93,7 @@ static int jrd_voice_core_show_node(void)
     }
 
     while (list_node_link != NULL) {
-        record_ptr = (jrd_voice_call_record_t *)(((jrd_voice_node_list_t *)list_node_link)->data);
+        record_ptr = (jan_voice_call_record_t *)(((jan_voice_node_list_t *)list_node_link)->data);
 
         if (record_ptr) {
             JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Info, [Total]contact_number = %s.\n", record_ptr->contact_number);
@@ -110,7 +110,7 @@ static int jrd_voice_core_show_node(void)
     }
 
     while (list_node_link != NULL) {
-        record_ptr = (jrd_voice_call_record_t *)((jrd_voice_node_list_t *)(((jrd_voice_node_list_t *)list_node_link)->data))->data;
+        record_ptr = (jan_voice_call_record_t *)((jan_voice_node_list_t *)(((jan_voice_node_list_t *)list_node_link)->data))->data;
 
         if (record_ptr) {
             JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Info, [Missed]contact_number = %s.\n", record_ptr->contact_number);
@@ -127,7 +127,7 @@ static int jrd_voice_core_show_node(void)
     }
 
     while (list_node_link != NULL) {
-        record_ptr = (jrd_voice_call_record_t *)((jrd_voice_node_list_t *)(((jrd_voice_node_list_t *)list_node_link)->data))->data;
+        record_ptr = (jan_voice_call_record_t *)((jan_voice_node_list_t *)(((jan_voice_node_list_t *)list_node_link)->data))->data;
 
         if (record_ptr) {
             JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Info, [Incoming]contact_number = %s.\n", record_ptr->contact_number);
@@ -144,7 +144,7 @@ static int jrd_voice_core_show_node(void)
     }
 
     while (list_node_link != NULL) {
-        record_ptr = (jrd_voice_call_record_t *)((jrd_voice_node_list_t *)(((jrd_voice_node_list_t *)list_node_link)->data))->data;
+        record_ptr = (jan_voice_call_record_t *)((jan_voice_node_list_t *)(((jan_voice_node_list_t *)list_node_link)->data))->data;
 
         if (record_ptr) {
             JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Info, [Outgoing]contact_number = %s.\n", record_ptr->contact_number);
@@ -173,7 +173,7 @@ static int jrd_voice_core_show_node(void)
   None.
 */
 /*=========================================================================*/
-static char *get_status_string_for_debug (char *status_buf, e_jrd_voice_core_status_t status)
+static char *get_status_string_for_debug (char *status_buf, e_jan_voice_core_status_t status)
 {
     char *p_buf = status_buf;
     
@@ -207,7 +207,7 @@ static char *get_status_string_for_debug (char *status_buf, e_jrd_voice_core_sta
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_push_node
+  Function:  jan_voice_core_push_node
 ===========================================================================*/
 /*!
 @brief
@@ -220,7 +220,7 @@ static char *get_status_string_for_debug (char *status_buf, e_jrd_voice_core_sta
   None.
 */
 /*=========================================================================*/
-static void* jrd_voice_core_push_node(ordered_list_type *list, int node_size, void *member, int member_size)
+static void* jan_voice_core_push_node(ordered_list_type *list, int node_size, void *member, int member_size)
 {
     void *new_node = NULL;
 
@@ -243,7 +243,7 @@ static void* jrd_voice_core_push_node(ordered_list_type *list, int node_size, vo
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_pop_node
+  Function:  jan_voice_core_pop_node
 ===========================================================================*/
 /*!
 @brief
@@ -256,7 +256,7 @@ static void* jrd_voice_core_push_node(ordered_list_type *list, int node_size, vo
   None.
 */
 /*=========================================================================*/
-static int jrd_voice_core_pop_node(ordered_list_type *list, void *node_ptr, int node_size, int member_size)
+static int jan_voice_core_pop_node(ordered_list_type *list, void *node_ptr, int node_size, int member_size)
 {
     void *member_ptr = NULL;
 
@@ -274,7 +274,7 @@ static int jrd_voice_core_pop_node(ordered_list_type *list, void *node_ptr, int 
 }
 
 /*===========================================================================
-  Function:  jrd_voice_core_record_limit
+  Function:  jan_voice_core_record_limit
 ===========================================================================*/
 /*!
 @brief
@@ -287,13 +287,13 @@ static int jrd_voice_core_pop_node(ordered_list_type *list, void *node_ptr, int 
   None.
 */
 /*=========================================================================*/
-static int jrd_voice_core_record_limit(int limit_num)
+static int jan_voice_core_record_limit(int limit_num)
 {
     int total_list_size = 0;
     ordered_list_link_type *list_node_link = NULL;
     ordered_list_type *record_list = NULL;
-    jrd_voice_node_list_t *this_record_node = NULL;
-    jrd_voice_call_record_t *record = NULL;
+    jan_voice_node_list_t *this_record_node = NULL;
+    jan_voice_call_record_t *record = NULL;
 
     record_list = &g_voice_data.total;
     list_node_link = ordered_list_peek_front(record_list);
@@ -301,8 +301,8 @@ static int jrd_voice_core_record_limit(int limit_num)
 
     /* if g_voice_data.total list size > 100, delete front node */
     if (total_list_size > limit_num) {
-        this_record_node = (jrd_voice_node_list_t *)list_node_link;
-        record = (jrd_voice_call_record_t *)(this_record_node->data);
+        this_record_node = (jan_voice_node_list_t *)list_node_link;
+        record = (jan_voice_call_record_t *)(this_record_node->data);
 
         #if 1
         JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR, "Info, cur total_list_size = %d.\n", total_list_size);
@@ -328,7 +328,7 @@ static int jrd_voice_core_record_limit(int limit_num)
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_add_record_to_list
+  Function:  jan_voice_core_add_record_to_list
 ===========================================================================*/
 /*!
 @brief
@@ -341,7 +341,7 @@ static int jrd_voice_core_record_limit(int limit_num)
   None.
 */
 /*=========================================================================*/
-static int jrd_voice_core_add_record_to_list(e_jrd_voice_core_call_type_t type)
+static int jan_voice_core_add_record_to_list(e_jan_voice_core_call_type_t type)
 {
     int id_count = 1;
     int limit_num = JRD_VOICE_RECORD_MAX_NUM;
@@ -349,10 +349,10 @@ static int jrd_voice_core_add_record_to_list(e_jrd_voice_core_call_type_t type)
     time_t curtime = {0};
     ordered_list_type *list = NULL;
     ordered_list_type *total_list = NULL;
-    jrd_voice_call_record_t *record_ptr = NULL;
+    jan_voice_call_record_t *record_ptr = NULL;
     void *node_ptr = NULL;
 
-    JRD_MALLOC(sizeof(jrd_voice_call_record_t), record_ptr);
+    JRD_MALLOC(sizeof(jan_voice_call_record_t), record_ptr);
     if (!record_ptr) {
         JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Error, JRD_MALLOC new record ptr.\n");
         return JRD_FAIL;
@@ -386,12 +386,12 @@ static int jrd_voice_core_add_record_to_list(e_jrd_voice_core_call_type_t type)
             record_ptr->call_date = curtime;
             record_ptr->call_duration = 0;
             /* 3rd incoming call status is WAITING and current call status is CONVERSATION. */
-            if (jrd_voice_al_get_third_call_state() == E_JRD_VOICE_CALL_STATE_WAITING
-                && jrd_voice_al_get_call_state() == E_JRD_VOICE_CALL_STATE_CONVERSATION) {
-                jrd_voice_al_get_third_call_number(record_ptr->contact_number);
+            if (jan_voice_al_get_third_call_state() == E_JRD_VOICE_CALL_STATE_WAITING
+                && jan_voice_al_get_call_state() == E_JRD_VOICE_CALL_STATE_CONVERSATION) {
+                jan_voice_al_get_third_call_number(record_ptr->contact_number);
                 JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR, "Info, 3rd record_ptr->contact_number=%s.\n", record_ptr->contact_number);
             } else {
-                jrd_voice_al_get_call_number(record_ptr->contact_number);
+                jan_voice_al_get_call_number(record_ptr->contact_number);
                 JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR, "Info, 2nd record_ptr->contact_number=%s.\n", record_ptr->contact_number);
             }
 
@@ -403,7 +403,7 @@ static int jrd_voice_core_add_record_to_list(e_jrd_voice_core_call_type_t type)
             record_ptr->call_type = type; // 1
             record_ptr->call_date = g_voice_data.previous_time;
             record_ptr->call_duration = (curtime - g_voice_data.previous_time);
-            jrd_voice_al_get_call_number(record_ptr->contact_number);
+            jan_voice_al_get_call_number(record_ptr->contact_number);
 
             list = &g_voice_data.incoming;
             break;
@@ -447,41 +447,41 @@ static int jrd_voice_core_add_record_to_list(e_jrd_voice_core_call_type_t type)
 #endif
 
     /* Push record data to total_list. */
-    node_ptr = jrd_voice_core_push_node(total_list, 
-                                        sizeof(jrd_voice_node_list_t),
+    node_ptr = jan_voice_core_push_node(total_list, 
+                                        sizeof(jan_voice_node_list_t),
                                         &record_ptr, 
-                                        sizeof(jrd_voice_call_record_t *));
+                                        sizeof(jan_voice_call_record_t *));
     if (!node_ptr) {
         JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Error, Push record data to total list.\n");
         return JRD_FAIL;
     }
     //g_voice_data.id_count++;
 
-    node_ptr = jrd_voice_core_push_node(list, 
-                                        sizeof(jrd_voice_node_list_t), 
+    node_ptr = jan_voice_core_push_node(list, 
+                                        sizeof(jan_voice_node_list_t), 
                                         &node_ptr, 
-                                        sizeof(jrd_voice_node_list_t *));
+                                        sizeof(jan_voice_node_list_t *));
     if (!node_ptr) {
         JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Error, Push node data to list.\n");
         return JRD_FAIL;
     }
 
     /* Delete early record when record number > 100(limit) */
-    jrd_voice_core_record_limit(limit_num);
+    jan_voice_core_record_limit(limit_num);
 
     /* Save record data to datastore. */
-    jrd_voice_datastore_insert(record_ptr, limit_num);
+    jan_voice_datastore_insert(record_ptr, limit_num);
 
 #ifdef JRD_VOICE_DEBUG
     /* Only to Debug */
-    jrd_voice_core_show_node();
+    jan_voice_core_show_node();
 #endif
     return JRD_NO_ERR;
 }
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_compare_id_in_total_list
+  Function:  jan_voice_core_compare_id_in_total_list
 ===========================================================================*/
 /*!
 @brief
@@ -494,10 +494,10 @@ static int jrd_voice_core_add_record_to_list(e_jrd_voice_core_call_type_t type)
   None.
 */
 /*=========================================================================*/
-static int jrd_voice_core_compare_id_in_total_list(void *node_ptr, void* record_id)
+static int jan_voice_core_compare_id_in_total_list(void *node_ptr, void* record_id)
 {
     if ((*(int *)record_id) 
-        == ((jrd_voice_call_record_t *)(((jrd_voice_node_list_t *)node_ptr)->data))->id) {
+        == ((jan_voice_call_record_t *)(((jan_voice_node_list_t *)node_ptr)->data))->id) {
         return 1;
     } else {
         return 0;
@@ -506,7 +506,7 @@ static int jrd_voice_core_compare_id_in_total_list(void *node_ptr, void* record_
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_compare_id_in_other_list
+  Function:  jan_voice_core_compare_id_in_other_list
 ===========================================================================*/
 /*!
 @brief
@@ -519,10 +519,10 @@ static int jrd_voice_core_compare_id_in_total_list(void *node_ptr, void* record_
   None.
 */
 /*=========================================================================*/
-static int jrd_voice_core_compare_id_in_other_list(void *node_ptr, void* record_id)
+static int jan_voice_core_compare_id_in_other_list(void *node_ptr, void* record_id)
 {
     if ((*(int *)record_id)
-        == ((jrd_voice_call_record_t *)((jrd_voice_node_list_t *)(((jrd_voice_node_list_t *)node_ptr)->data))->data)->id) {
+        == ((jan_voice_call_record_t *)((jan_voice_node_list_t *)(((jan_voice_node_list_t *)node_ptr)->data))->data)->id) {
         return 1;
     } else {
         return 0;
@@ -531,7 +531,7 @@ static int jrd_voice_core_compare_id_in_other_list(void *node_ptr, void* record_
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_compare_member_ptr
+  Function:  jan_voice_core_compare_member_ptr
 ===========================================================================*/
 /*!
 @brief
@@ -544,9 +544,9 @@ static int jrd_voice_core_compare_id_in_other_list(void *node_ptr, void* record_
   None.
 */
 /*=========================================================================*/
-static int jrd_voice_core_compare_member_ptr(void *node_ptr, void* member_ptr)
+static int jan_voice_core_compare_member_ptr(void *node_ptr, void* member_ptr)
 {
-    if ((jrd_voice_node_list_t *)(((jrd_voice_node_list_t *)node_ptr)->data) == member_ptr) {
+    if ((jan_voice_node_list_t *)(((jan_voice_node_list_t *)node_ptr)->data) == member_ptr) {
         return 1;
     } else {
         return 0;
@@ -555,7 +555,7 @@ static int jrd_voice_core_compare_member_ptr(void *node_ptr, void* member_ptr)
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_delete_record_from_list
+  Function:  jan_voice_core_delete_record_from_list
 ===========================================================================*/
 /*!
 @brief
@@ -568,10 +568,10 @@ static int jrd_voice_core_compare_member_ptr(void *node_ptr, void* member_ptr)
   None.
 */
 /*=========================================================================*/
-static int jrd_voice_core_delete_record_from_list(ordered_list_type *list, int id)
+static int jan_voice_core_delete_record_from_list(ordered_list_type *list, int id)
 {
-    jrd_voice_node_list_t *node_ptr = NULL;
-    jrd_voice_node_list_t *tmp_node_ptr = NULL;
+    jan_voice_node_list_t *node_ptr = NULL;
+    jan_voice_node_list_t *tmp_node_ptr = NULL;
     ordered_list_type *tmp_list = NULL;
     int rc = JRD_NO_ERR;
 
@@ -581,13 +581,13 @@ static int jrd_voice_core_delete_record_from_list(ordered_list_type *list, int i
     }
 
     if (list == &g_voice_data.total) {  /* Delete record from total list. */
-        node_ptr = ordered_list_linear_search(list, jrd_voice_core_compare_id_in_total_list, &id);
+        node_ptr = ordered_list_linear_search(list, jan_voice_core_compare_id_in_total_list, &id);
         if (!node_ptr) {
             JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Error, Not find record id:%d in total list.\n", id);
             return JRD_FAIL;
         }
 
-        switch (((jrd_voice_call_record_t *)(node_ptr->data))->call_type)
+        switch (((jan_voice_call_record_t *)(node_ptr->data))->call_type)
         {
             case E_JRD_VOICE_CORE_CALL_TYPE_INCOMING:
             {
@@ -611,7 +611,7 @@ static int jrd_voice_core_delete_record_from_list(ordered_list_type *list, int i
             }
         }
 
-        tmp_node_ptr = ordered_list_linear_search(tmp_list, jrd_voice_core_compare_member_ptr, node_ptr);
+        tmp_node_ptr = ordered_list_linear_search(tmp_list, jan_voice_core_compare_member_ptr, node_ptr);
         if (!tmp_node_ptr) {
             JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Error, Not find member ptr.\n");
             return JRD_FAIL;
@@ -619,19 +619,19 @@ static int jrd_voice_core_delete_record_from_list(ordered_list_type *list, int i
         ordered_list_pop_item(tmp_list, (ordered_list_link_type *)tmp_node_ptr);
         JRD_FREE(tmp_node_ptr);
 
-        rc = jrd_voice_core_pop_node(&g_voice_data.total, node_ptr, sizeof(jrd_voice_node_list_t), sizeof(jrd_voice_node_list_t *));
+        rc = jan_voice_core_pop_node(&g_voice_data.total, node_ptr, sizeof(jan_voice_node_list_t), sizeof(jan_voice_node_list_t *));
         if (rc != JRD_NO_ERR) {
             JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Error, Cann't delete record from total list, id:%d.\n", id);
             return JRD_FAIL;
         }
     } else {  /* Delete record from other list, such as missed/incoming/outgoing. */
-        node_ptr = ordered_list_linear_search(list, jrd_voice_core_compare_id_in_other_list, &id);
+        node_ptr = ordered_list_linear_search(list, jan_voice_core_compare_id_in_other_list, &id);
         if (!node_ptr) {
             JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Error, Not find record id:%d in other list.\n", id);
             return JRD_FAIL;
         }
 
-        rc = jrd_voice_core_pop_node(&g_voice_data.total, node_ptr->data, sizeof(jrd_voice_node_list_t), sizeof(jrd_voice_node_list_t *));
+        rc = jan_voice_core_pop_node(&g_voice_data.total, node_ptr->data, sizeof(jan_voice_node_list_t), sizeof(jan_voice_node_list_t *));
         if (rc != JRD_NO_ERR) {
             JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Error, Cann't delete record from list, id:%d.\n", id);
             return JRD_FAIL;
@@ -641,7 +641,7 @@ static int jrd_voice_core_delete_record_from_list(ordered_list_type *list, int i
     }
 
     /* Delete record data from datastore. */
-    jrd_voice_datastore_delete(id);
+    jan_voice_datastore_delete(id);
     g_voice_data.id_mask[(id / 32)] &= (~(1 << (id % 32)));
 
     return JRD_NO_ERR;
@@ -649,7 +649,7 @@ static int jrd_voice_core_delete_record_from_list(ordered_list_type *list, int i
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_clear_list
+  Function:  jan_voice_core_clear_list
 ===========================================================================*/
 /*!
 @brief
@@ -662,18 +662,18 @@ static int jrd_voice_core_delete_record_from_list(ordered_list_type *list, int i
   None.
 */
 /*=========================================================================*/
-static int jrd_voice_core_clear_record_from_list(ordered_list_type *list)
+static int jan_voice_core_clear_record_from_list(ordered_list_type *list)
 {
 
     /* Clear record data from datastore. */
-    jrd_voice_datastore_clear();
+    jan_voice_datastore_clear();
 
     return JRD_NO_ERR;
 }
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_init_record_form_datastore
+  Function:  jan_voice_core_init_record_form_datastore
 ===========================================================================*/
 /*!
 @brief
@@ -686,15 +686,15 @@ static int jrd_voice_core_clear_record_from_list(ordered_list_type *list)
   None.
 */
 /*=========================================================================*/
-static int jrd_voice_core_init_record_form_datastore(int n_count, char** column_value, char** column_name)
+static int jan_voice_core_init_record_form_datastore(int n_count, char** column_value, char** column_name)
 {
-    jrd_voice_call_record_t *record_ptr = NULL;
+    jan_voice_call_record_t *record_ptr = NULL;
     ordered_list_type *list = NULL;
     void *node_ptr = NULL;
     int n_len = 0;
     int index = 0;
 
-    JRD_MALLOC(sizeof(jrd_voice_call_record_t), record_ptr);
+    JRD_MALLOC(sizeof(jan_voice_call_record_t), record_ptr);
     if (!record_ptr) {
         JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Error, JRD_MALLOC new record ptr.\n");
         return JRD_FAIL;
@@ -749,19 +749,19 @@ static int jrd_voice_core_init_record_form_datastore(int n_count, char** column_
     }
 
     /* Push record data to total_list. */
-    node_ptr = jrd_voice_core_push_node(&g_voice_data.total, 
-                                        sizeof(jrd_voice_node_list_t), 
+    node_ptr = jan_voice_core_push_node(&g_voice_data.total, 
+                                        sizeof(jan_voice_node_list_t), 
                                         &record_ptr, 
-                                        sizeof(jrd_voice_call_record_t *));
+                                        sizeof(jan_voice_call_record_t *));
     if (!node_ptr) {
         JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Error, Push record data to total list.\n");
         return JRD_FAIL;
     }
 
-    node_ptr = jrd_voice_core_push_node(list, 
-                                        sizeof(jrd_voice_node_list_t), 
+    node_ptr = jan_voice_core_push_node(list, 
+                                        sizeof(jan_voice_node_list_t), 
                                         &node_ptr, 
-                                        sizeof(jrd_voice_node_list_t *));
+                                        sizeof(jan_voice_node_list_t *));
     if (!node_ptr) {
         JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Error, Push node data to list.\n");
         return JRD_FAIL;
@@ -797,7 +797,7 @@ static int jrd_voice_core_init_record_form_datastore(int n_count, char** column_
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_indication_to_led
+  Function:  jan_voice_core_indication_to_led
 ===========================================================================*/
 /*!
 @brief
@@ -810,9 +810,9 @@ static int jrd_voice_core_init_record_form_datastore(int n_count, char** column_
   None.
 */
 /*=========================================================================*/
-static int jrd_voice_core_indication_to_led(e_jrd_voice_core_status_t late_status)
+static int jan_voice_core_indication_to_led(e_jan_voice_core_status_t late_status)
 {
-    jrd_ind_data_type ind_info = {0};
+    jan_ind_data_type ind_info = {0};
     int call_status;
 
     switch(late_status)
@@ -846,13 +846,13 @@ static int jrd_voice_core_indication_to_led(e_jrd_voice_core_status_t late_statu
     ind_info.ind_data = (void*)&call_status;
     ind_info.data_size = sizeof(int);
     ind_info.module_id = MODULE_VOICE;
-    jrd_oem_ind(&ind_info);
+    jan_oem_ind(&ind_info);
     return JRD_NO_ERR;
 }
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_split_emergency_number
+  Function:  jan_voice_core_split_emergency_number
 ===========================================================================*/
 /*!
 @brief
@@ -866,7 +866,7 @@ static int jrd_voice_core_indication_to_led(e_jrd_voice_core_status_t late_statu
 */
 /*=========================================================================*/
 
-static int jrd_voice_core_split_emergency_number(char *src_str, char dest_str[][JRD_VOICE_EMERGENCY_NUM_LEN])
+static int jan_voice_core_split_emergency_number(char *src_str, char dest_str[][JRD_VOICE_EMERGENCY_NUM_LEN])
 {
   int index = 0;
   char *ph = src_str;
@@ -892,7 +892,7 @@ static int jrd_voice_core_split_emergency_number(char *src_str, char dest_str[][
 }
 
 /*===========================================================================
-  FUNCTION  jrd_voice_core_check_ecc_number
+  FUNCTION  jan_voice_core_check_ecc_number
 ===========================================================================*/
 /*!
 @brief
@@ -903,15 +903,15 @@ static int jrd_voice_core_split_emergency_number(char *src_str, char dest_str[][
 
 */
 /*=========================================================================*/
-static int jrd_voice_core_check_ecc_number(char *call_number)
+static int jan_voice_core_check_ecc_number(char *call_number)
 {
     char database_emergency_number[32] = {0};
     char emergency_number[JRD_VOICE_EMERGENCY_NUM][JRD_VOICE_EMERGENCY_NUM_LEN] = {0};
     int rs = JRD_NO_ERR;
     int i = 0;
 
-    jrd_voice_get_emergency_number (database_emergency_number);
-    rs = jrd_voice_core_split_emergency_number (database_emergency_number, emergency_number);
+    jan_voice_get_emergency_number (database_emergency_number);
+    rs = jan_voice_core_split_emergency_number (database_emergency_number, emergency_number);
     if (rs != JRD_NO_ERR) {
         JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR, "Error, split emergency number failed.\n");
         return JRD_FAIL;
@@ -937,7 +937,7 @@ static int jrd_voice_core_check_ecc_number(char *call_number)
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_dialing_out
+  Function:  jan_voice_core_dialing_out
 ===========================================================================*/
 /*!
 @brief
@@ -950,9 +950,9 @@ static int jrd_voice_core_check_ecc_number(char *call_number)
   None.
 */
 /*=========================================================================*/
-static void jrd_voice_core_dialing_out(int param)
+static void jan_voice_core_dialing_out(int param)
 {
-    e_jrd_voice_dial_type_t dial_type = E_JRD_VOICE_DIAL_TYPE_INVALID;
+    e_jan_voice_dial_type_t dial_type = E_JRD_VOICE_DIAL_TYPE_INVALID;
     int result = 0;
 
     if (g_voice_data.late_status == E_JRD_VOICE_CORE_STATUS_DIALING) {
@@ -963,16 +963,16 @@ static void jrd_voice_core_dialing_out(int param)
         JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"**********************************************************\n");
         #endif
 
-        result = jrd_voice_core_check_ecc_number (g_voice_data.call_num);
+        result = jan_voice_core_check_ecc_number (g_voice_data.call_num);
         if (result == 0) {
             dial_type = E_JRD_VOICE_DIAL_TYPE_EMERGENCY;
         } else {
             dial_type = E_JRD_VOICE_DIAL_TYPE_NORMAL;
         }
-        jrd_voice_al_call_dial(g_voice_data.call_num, dial_type);
+        jan_voice_al_call_dial(g_voice_data.call_num, dial_type);
     } else {
         /* Disable oscillator. */
-        jrd_slic_opt_oscillator(g_voice_data.slic_dev, 0);
+        jan_slic_opt_oscillator(g_voice_data.slic_dev, 0);
         g_voice_data.curr_status = E_JRD_VOICE_CORE_STATUS_IDLE;
         g_voice_data.late_status = E_JRD_VOICE_CORE_STATUS_IDLE;
     }
@@ -980,7 +980,7 @@ static void jrd_voice_core_dialing_out(int param)
 
 #if 0
 /*===========================================================================
-  Function:  jrd_voice_core_timeout_busy_tone
+  Function:  jan_voice_core_timeout_busy_tone
 ===========================================================================*/
 /*!
 @brief
@@ -993,10 +993,10 @@ static void jrd_voice_core_dialing_out(int param)
   None.
 */
 /*=========================================================================*/
-static void jrd_voice_core_timeout_busy_tone(int param)
+static void jan_voice_core_timeout_busy_tone(int param)
 {
-    jrd_slic_set_tone_osc_time (g_voice_data.slic_dev, 350, 350);
-    jrd_slic_opt_pcm(g_voice_data.slic_dev, 1);                /* Enable PCM. */
+    jan_slic_set_tone_osc_time (g_voice_data.slic_dev, 350, 350);
+    jan_slic_opt_pcm(g_voice_data.slic_dev, 1);                /* Enable PCM. */
 
     JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR, "Info, timeout busy tone play, disable pcm...\n");
 }
@@ -1004,7 +1004,7 @@ static void jrd_voice_core_timeout_busy_tone(int param)
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_wait_timeout
+  Function:  jan_voice_core_wait_timeout
 ===========================================================================*/
 /*!
 @brief
@@ -1017,9 +1017,9 @@ static void jrd_voice_core_timeout_busy_tone(int param)
   None.
 */
 /*=========================================================================*/
-static int jrd_voice_core_wait_timeout(void *param)
+static int jan_voice_core_wait_timeout(void *param)
 {
-    jrd_slic_device_t *dev = (jrd_slic_device_t *)param;
+    jan_slic_device_t *dev = (jan_slic_device_t *)param;
 
     if (!dev) {
         JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Error, timer param is NULL.\n");
@@ -1031,7 +1031,7 @@ static int jrd_voice_core_wait_timeout(void *param)
         JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Info, call_num = %s, len = %d.\n", g_voice_data.call_num, g_voice_data.len);
     } else {
         /* Disable oscillator. */
-        jrd_slic_opt_oscillator(g_voice_data.slic_dev, 0);
+        jan_slic_opt_oscillator(g_voice_data.slic_dev, 0);
         g_voice_data.curr_status = E_JRD_VOICE_CORE_STATUS_IDLE;
         g_voice_data.late_status = E_JRD_VOICE_CORE_STATUS_IDLE;
     }
@@ -1041,7 +1041,7 @@ static int jrd_voice_core_wait_timeout(void *param)
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_create_device
+  Function:  jan_voice_core_create_device
 ===========================================================================*/
 /*!
 @brief
@@ -1054,18 +1054,18 @@ static int jrd_voice_core_wait_timeout(void *param)
   None.
 */
 /*=========================================================================*/
-static jrd_slic_device_t *jrd_voice_core_create_device(void)
+static jan_slic_device_t *jan_voice_core_create_device(void)
 {
-    jrd_slic_device_t *dev = NULL;
+    jan_slic_device_t *dev = NULL;
     int rc = 0;
 
-    dev = jrd_slic_allocate_device();
+    dev = jan_slic_allocate_device();
     if (!dev) {
         JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Error, allocate slic device.\n");
         return NULL;
     }
 
-    rc = jrd_slic_register_device(dev, JRD_VOICE_SLIC_SPIDEV);
+    rc = jan_slic_register_device(dev, JRD_VOICE_SLIC_SPIDEV);
     if (rc != 0) {
         JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Error, register slic device.\n");
         return NULL;
@@ -1076,7 +1076,7 @@ static jrd_slic_device_t *jrd_voice_core_create_device(void)
 }
 
 /*===========================================================================
-  Function:  jrd_voice_core_status_handle
+  Function:  jan_voice_core_status_handle
 ===========================================================================*/
 /*!
 @brief
@@ -1089,9 +1089,9 @@ static jrd_slic_device_t *jrd_voice_core_create_device(void)
   None.
 */
 /*=========================================================================*/
-static int jrd_voice_core_status_handle(e_jrd_voice_core_status_t curr_status, e_jrd_voice_core_status_t late_status)
+static int jan_voice_core_status_handle(e_jan_voice_core_status_t curr_status, e_jan_voice_core_status_t late_status)
 {
-    //e_jrd_slic_device_t state = E_JRD_SLIC_DEVICE_UNKNOWN;
+    //e_jan_slic_device_t state = E_JRD_SLIC_DEVICE_UNKNOWN;
     char call_name[64] = {0};
     char call_number[32] = {0};
     char call_date[32] = {0};
@@ -1106,7 +1106,7 @@ static int jrd_voice_core_status_handle(e_jrd_voice_core_status_t curr_status, e
     #endif
     
     /* Indication call statue to led. */
-    jrd_voice_core_indication_to_led(late_status);
+    jan_voice_core_indication_to_led(late_status);
 
     switch (late_status)
     {
@@ -1116,47 +1116,47 @@ static int jrd_voice_core_status_handle(e_jrd_voice_core_status_t curr_status, e
                 #ifdef JRD_VOICE_STATUS_DEBUG
                 JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR, "status change : %s >>> %s\n", get_status_string_for_debug (curr_buf, curr_status), get_status_string_for_debug (late_buf, late_status));
                 #endif
-                jrd_voice_core_add_record_to_list(E_JRD_VOICE_CORE_CALL_TYPE_MISSED);
+                jan_voice_core_add_record_to_list(E_JRD_VOICE_CORE_CALL_TYPE_MISSED);
 
                 g_voice_data.dev_state = E_JRD_SLIC_DEVICE_UNKNOWN;
-                jrd_slic_opt_ring(g_voice_data.slic_dev, 0);                 /* Disable Ring. */
-                jrd_slic_opt_pcm(g_voice_data.slic_dev, 0);                  /* Disable PCM. */
-                jrd_slic_opt_oscillator(g_voice_data.slic_dev, 0);           /* Disable oscillator. */
-                jrd_voice_al_call_end();                                     /* End Call. */
-                jrd_slic_set_tone_osc_time(g_voice_data.slic_dev, 0, 0);     /* End Tone. */
+                jan_slic_opt_ring(g_voice_data.slic_dev, 0);                 /* Disable Ring. */
+                jan_slic_opt_pcm(g_voice_data.slic_dev, 0);                  /* Disable PCM. */
+                jan_slic_opt_oscillator(g_voice_data.slic_dev, 0);           /* Disable oscillator. */
+                jan_voice_al_call_end();                                     /* End Call. */
+                jan_slic_set_tone_osc_time(g_voice_data.slic_dev, 0, 0);     /* End Tone. */
             } else if (curr_status == E_JRD_VOICE_CORE_STATUS_CONVERSATION) {
                 #ifdef JRD_VOICE_STATUS_DEBUG
                 JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR, "status change : %s >>> %s\n", get_status_string_for_debug (curr_buf, curr_status), get_status_string_for_debug (late_buf, late_status));
                 #endif
                 if (g_voice_data.is_incoming == 1) {
-                    jrd_voice_core_add_record_to_list(E_JRD_VOICE_CORE_CALL_TYPE_INCOMING);
+                    jan_voice_core_add_record_to_list(E_JRD_VOICE_CORE_CALL_TYPE_INCOMING);
                 } else {
-                    jrd_voice_core_add_record_to_list(E_JRD_VOICE_CORE_CALL_TYPE_OUTGOING);
+                    jan_voice_core_add_record_to_list(E_JRD_VOICE_CORE_CALL_TYPE_OUTGOING);
                 }
-                jrd_voice_al_call_end();                                     /* End Call. */
-                jrd_slic_opt_pcm(g_voice_data.slic_dev, 0);                 /* Disable PCM. */
-                jrd_slic_set_tone_osc_time(g_voice_data.slic_dev, 0, 0);  /* End Tone. */
+                jan_voice_al_call_end();                                     /* End Call. */
+                jan_slic_opt_pcm(g_voice_data.slic_dev, 0);                 /* Disable PCM. */
+                jan_slic_set_tone_osc_time(g_voice_data.slic_dev, 0, 0);  /* End Tone. */
             } else if (curr_status == E_JRD_VOICE_CORE_STATUS_ALERTING) {
                 #ifdef JRD_VOICE_STATUS_DEBUG
                 JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR, "status change : %s >>> %s\n", get_status_string_for_debug (curr_buf, curr_status), get_status_string_for_debug (late_buf, late_status));
                 #endif
-                jrd_voice_core_add_record_to_list(E_JRD_VOICE_CORE_CALL_TYPE_OUTGOING);
+                jan_voice_core_add_record_to_list(E_JRD_VOICE_CORE_CALL_TYPE_OUTGOING);
 
-                jrd_voice_al_call_end();                                    /* End Call. */
-                jrd_slic_opt_pcm(g_voice_data.slic_dev, 0);                 /* Disable PCM. */
-                jrd_slic_set_tone_osc_time(g_voice_data.slic_dev, 0, 0);    /* End Tone. */
+                jan_voice_al_call_end();                                    /* End Call. */
+                jan_slic_opt_pcm(g_voice_data.slic_dev, 0);                 /* Disable PCM. */
+                jan_slic_set_tone_osc_time(g_voice_data.slic_dev, 0, 0);    /* End Tone. */
             } else if (curr_status == E_JRD_VOICE_CORE_STATUS_DIALING) {
                 #ifdef JRD_VOICE_STATUS_DEBUG
                 JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR, "status change : %s >>> %s\n", get_status_string_for_debug (curr_buf, curr_status), get_status_string_for_debug (late_buf, late_status));
                 #endif
-                jrd_timer_stop(&(g_voice_data.call_timer));             /* Stop 15s Wait Time. */
+                jan_timer_stop(&(g_voice_data.call_timer));             /* Stop 15s Wait Time. */
             } else if (curr_status == E_JRD_VOICE_CORE_STATUS_WAIT) {
                 #ifdef JRD_VOICE_STATUS_DEBUG
                 JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR, "status change : %s >>> %s\n", get_status_string_for_debug (curr_buf, curr_status), get_status_string_for_debug (late_buf, late_status));
                 #endif
-                jrd_timer_stop(&(g_voice_data.call_timer));             /* Stop 15s Wait Time. */
-                jrd_slic_opt_oscillator(g_voice_data.slic_dev, 0);      /* Disable oscillator. */
-                jrd_slic_set_tone_osc_time(g_voice_data.slic_dev, 0, 0);        /* Close busy tone. */
+                jan_timer_stop(&(g_voice_data.call_timer));             /* Stop 15s Wait Time. */
+                jan_slic_opt_oscillator(g_voice_data.slic_dev, 0);      /* Disable oscillator. */
+                jan_slic_set_tone_osc_time(g_voice_data.slic_dev, 0, 0);        /* Close busy tone. */
             } else {
                 /* Nothing to do. */
                 return JRD_NO_ERR;
@@ -1185,18 +1185,18 @@ static int jrd_voice_core_status_handle(e_jrd_voice_core_status_t curr_status, e
                 JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Info, call_date = %s.\n", call_date);
 
                 /* For 3rd call CID display. */
-                if (jrd_voice_al_get_call_state() == E_JRD_VOICE_CALL_STATE_DISCONNECTING
-                    || jrd_voice_al_get_call_state() == E_JRD_VOICE_CALL_STATE_END) {
-                    jrd_voice_al_get_third_call_number(call_number);
+                if (jan_voice_al_get_call_state() == E_JRD_VOICE_CALL_STATE_DISCONNECTING
+                    || jan_voice_al_get_call_state() == E_JRD_VOICE_CALL_STATE_END) {
+                    jan_voice_al_get_third_call_number(call_number);
                 } else {
-                    jrd_voice_al_get_call_number(call_number);
+                    jan_voice_al_get_call_number(call_number);
                 }
 
-                jrd_slic_opt_ring(g_voice_data.slic_dev, 1);    /* Enable Ring. */
+                jan_slic_opt_ring(g_voice_data.slic_dev, 1);    /* Enable Ring. */
 
                 /* Display CID -- Caller number. */
-                //rc = jrd_slic_opt_send_CID(g_voice_data.slic_dev, call_name, call_number, call_date);
-                rc = jrd_slic_opt_send_CID(g_voice_data.slic_dev, call_name, call_number, call_date, &(g_voice_data.dev_state));
+                //rc = jan_slic_opt_send_CID(g_voice_data.slic_dev, call_name, call_number, call_date);
+                rc = jan_slic_opt_send_CID(g_voice_data.slic_dev, call_name, call_number, call_date, &(g_voice_data.dev_state));
                 JRD_OEM_LOG_INFO (JRD_OEM_LOG_ERROR, "Info, g_voice_data.dev_state = %d\n", g_voice_data.dev_state);
                 if (rc != JRD_NO_ERR) {
                     JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Error, Send CID.\n");
@@ -1225,9 +1225,9 @@ static int jrd_voice_core_status_handle(e_jrd_voice_core_status_t curr_status, e
                 JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Info[yuan.jiang1], Test timezone_diff = %d. \n", timezone_diff);
                 JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Info, call_date_test1 = %s.\n", call_date_test1);
 
-                jrd_slic_opt_ring(g_voice_data.slic_dev, 0);    /* Disable Ring. */
-                jrd_slic_opt_pcm(g_voice_data.slic_dev, 1);     /* Enable PCM. */
-                jrd_voice_al_call_answer();                      /* Answer call. */
+                jan_slic_opt_ring(g_voice_data.slic_dev, 0);    /* Disable Ring. */
+                jan_slic_opt_pcm(g_voice_data.slic_dev, 1);     /* Enable PCM. */
+                jan_voice_al_call_answer();                      /* Answer call. */
             } else if (curr_status == E_JRD_VOICE_CORE_STATUS_ALERTING) {
                 #ifdef JRD_VOICE_STATUS_DEBUG
                 JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR, "status change : %s >>> %s\n", get_status_string_for_debug (curr_buf, curr_status), get_status_string_for_debug (late_buf, late_status));
@@ -1240,7 +1240,7 @@ static int jrd_voice_core_status_handle(e_jrd_voice_core_status_t curr_status, e
                 strftime(call_date_test2, 32, "%m%d%H%M", localtime(&g_voice_data.previous_time));
                 JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Info, call_date_test2 = %s.\n", call_date_test2);
 
-                jrd_slic_opt_pcm(g_voice_data.slic_dev, 1);     /* Enable PCM. */
+                jan_slic_opt_pcm(g_voice_data.slic_dev, 1);     /* Enable PCM. */
             } else {
                 return JRD_NO_ERR;
             }
@@ -1252,8 +1252,8 @@ static int jrd_voice_core_status_handle(e_jrd_voice_core_status_t curr_status, e
                 #ifdef JRD_VOICE_STATUS_DEBUG
                 JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR, "status change : %s >>> %s\n", get_status_string_for_debug (curr_buf, curr_status), get_status_string_for_debug (late_buf, late_status));
                 #endif
-                jrd_timer_start(&(g_voice_data.call_timer));           /* 15s Wait Time. */
-                jrd_slic_opt_oscillator(g_voice_data.slic_dev, 1);    /* Enable oscillator. */
+                jan_timer_start(&(g_voice_data.call_timer));           /* 15s Wait Time. */
+                jan_slic_opt_oscillator(g_voice_data.slic_dev, 1);    /* Enable oscillator. */
             }
             break;
         }
@@ -1263,8 +1263,8 @@ static int jrd_voice_core_status_handle(e_jrd_voice_core_status_t curr_status, e
                 #ifdef JRD_VOICE_STATUS_DEBUG
                 JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR, "status change : %s >>> %s\n", get_status_string_for_debug (curr_buf, curr_status), get_status_string_for_debug (late_buf, late_status));
                 #endif
-                jrd_timer_stop (&(g_voice_data.call_timer));
-                jrd_slic_opt_oscillator(g_voice_data.slic_dev, 0);    /* Disable oscillator */
+                jan_timer_stop (&(g_voice_data.call_timer));
+                jan_slic_opt_oscillator(g_voice_data.slic_dev, 0);    /* Disable oscillator */
             } else if (curr_status == E_JRD_VOICE_CORE_STATUS_DIALING) {
                 JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Info, user is pressing digit.\n");
             } else {
@@ -1278,7 +1278,7 @@ static int jrd_voice_core_status_handle(e_jrd_voice_core_status_t curr_status, e
                 #ifdef JRD_VOICE_STATUS_DEBUG
                 JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR, "status change : %s >>> %s\n", get_status_string_for_debug (curr_buf, curr_status), get_status_string_for_debug (late_buf, late_status));
                 #endif
-                jrd_slic_opt_pcm(g_voice_data.slic_dev, 1);                /* Enable PCM. */
+                jan_slic_opt_pcm(g_voice_data.slic_dev, 1);                /* Enable PCM. */
                 //alarm (JRD_VOICE_CALLOUT_TIMEOUT);
             }
             break;
@@ -1293,7 +1293,7 @@ static int jrd_voice_core_status_handle(e_jrd_voice_core_status_t curr_status, e
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_delete_record_id
+  Function:  jan_voice_core_delete_record_id
 ===========================================================================*/
 /*!
 @brief
@@ -1306,7 +1306,7 @@ static int jrd_voice_core_status_handle(e_jrd_voice_core_status_t curr_status, e
   None.
 */
 /*=========================================================================*/
-int jrd_voice_core_delete_record_id(int list_type, int record_id)
+int jan_voice_core_delete_record_id(int list_type, int record_id)
 {
     ordered_list_type *list = NULL;
     int rc = JRD_NO_ERR;
@@ -1323,14 +1323,14 @@ int jrd_voice_core_delete_record_id(int list_type, int record_id)
         return JRD_FAIL;
     }
 
-    rc = jrd_voice_core_delete_record_from_list(list, record_id);
+    rc = jan_voice_core_delete_record_from_list(list, record_id);
 
     return JRD_NO_ERR;
 }
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_delete_record_id
+  Function:  jan_voice_core_delete_record_id
 ===========================================================================*/
 /*!
 @brief
@@ -1343,7 +1343,7 @@ int jrd_voice_core_delete_record_id(int list_type, int record_id)
   None.
 */
 /*=========================================================================*/
-int jrd_voice_core_clear_record_list(ordered_list_type *record_list)
+int jan_voice_core_clear_record_list(ordered_list_type *record_list)
 {
     int rc = JRD_NO_ERR;
 
@@ -1352,7 +1352,7 @@ int jrd_voice_core_clear_record_list(ordered_list_type *record_list)
         return JRD_FAIL;
     }
 
-    rc = jrd_voice_core_clear_record_from_list(record_list);
+    rc = jan_voice_core_clear_record_from_list(record_list);
     if (rc != JRD_NO_ERR) {
         JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Error, Cann't clear record list.\n");
         return JRD_FAIL;
@@ -1363,7 +1363,7 @@ int jrd_voice_core_clear_record_list(ordered_list_type *record_list)
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_get_record_count_info
+  Function:  jan_voice_core_get_record_count_info
 ===========================================================================*/
 /*!
 @brief
@@ -1376,7 +1376,7 @@ int jrd_voice_core_clear_record_list(ordered_list_type *record_list)
   None.
 */
 /*=========================================================================*/
-jrd_voice_call_record_count_info_t* jrd_voice_core_get_record_count_info(void)
+jan_voice_call_record_count_info_t* jan_voice_core_get_record_count_info(void)
 {
 
     g_voice_data.count_info.incoming_count = ordered_list_size(&g_voice_data.incoming);
@@ -1388,7 +1388,7 @@ jrd_voice_call_record_count_info_t* jrd_voice_core_get_record_count_info(void)
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_get_record_list
+  Function:  jan_voice_core_get_record_list
 ===========================================================================*/
 /*!
 @brief
@@ -1401,7 +1401,7 @@ jrd_voice_call_record_count_info_t* jrd_voice_core_get_record_count_info(void)
   None.
 */
 /*=========================================================================*/
-ordered_list_type* jrd_voice_core_get_record_list(e_jrd_voice_list_type_t list_type)
+ordered_list_type* jan_voice_core_get_record_list(e_jan_voice_list_type_t list_type)
 {
     ordered_list_type *list = NULL;
 
@@ -1423,7 +1423,7 @@ ordered_list_type* jrd_voice_core_get_record_list(e_jrd_voice_list_type_t list_t
 
 #if 0
 /*===========================================================================
-  Function:  jrd_voice_core_correct_time
+  Function:  jan_voice_core_correct_time
 ===========================================================================*/
 /*!
 @brief
@@ -1436,7 +1436,7 @@ ordered_list_type* jrd_voice_core_get_record_list(e_jrd_voice_list_type_t list_t
   None.
 */
 /*=========================================================================*/
-int jrd_voice_core_correct_time(void)
+int jan_voice_core_correct_time(void)
 {
     char call_name[64] = {0};
     char call_number[32] = {0};
@@ -1451,7 +1451,7 @@ int jrd_voice_core_correct_time(void)
     strftime(call_date, 32, "%m%d%H%M", localtime(&time));
 
     /* Corrention time. */
-    rc = jrd_slic_opt_send_CID(g_voice_data.slic_dev, call_name, call_number, call_date, &(g_voice_data.dev_state));
+    rc = jan_slic_opt_send_CID(g_voice_data.slic_dev, call_name, call_number, call_date, &(g_voice_data.dev_state));
     if (rc != JRD_NO_ERR) {
         JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Error, Send correction time.\n");
         return JRD_FAIL;
@@ -1462,7 +1462,7 @@ int jrd_voice_core_correct_time(void)
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_timezone_handle
+  Function:  jan_voice_core_timezone_handle
 ===========================================================================*/
 /*!
 @brief
@@ -1475,7 +1475,7 @@ int jrd_voice_core_correct_time(void)
   None.
 */
 /*=========================================================================*/
-int jrd_voice_core_timezone_handle(jrd_voice_timezone_data_t *time_info)
+int jan_voice_core_timezone_handle(jan_voice_timezone_data_t *time_info)
 {
     char tmp_time_diff[10] = {0};
     char *p_time_diff = NULL;
@@ -1536,13 +1536,13 @@ int jrd_voice_core_timezone_handle(jrd_voice_timezone_data_t *time_info)
     strftime(timezone_date, 32, "%m%d%H%M", localtime(&time));
     JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR, "Info, timezone_date = %s.\n", timezone_date);
 #endif
-    //jrd_voice_core_correct_time ();
+    //jan_voice_core_correct_time ();
     return JRD_NO_ERROR;
 }
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_device_event_handle
+  Function:  jan_voice_core_device_event_handle
 ===========================================================================*/
 /*!
 @brief
@@ -1555,17 +1555,17 @@ int jrd_voice_core_timezone_handle(jrd_voice_timezone_data_t *time_info)
   None.
 */
 /*=========================================================================*/
-int jrd_voice_core_device_event_handle(void)
+int jan_voice_core_device_event_handle(void)
 {
     int rc = 0;
     char dtmf_number = NULL;
-    e_jrd_slic_device_t state = E_JRD_SLIC_DEVICE_UNKNOWN;
+    e_jan_slic_device_t state = E_JRD_SLIC_DEVICE_UNKNOWN;
 
-    sighandler_t alrm_handler = jrd_voice_core_dialing_out;
+    sighandler_t alrm_handler = jan_voice_core_dialing_out;
     signal (SIGALRM, alrm_handler);
 
 #if 0
-    jrd_slic_get_device_state(g_voice_data.slic_dev, &state);
+    jan_slic_get_device_state(g_voice_data.slic_dev, &state);
     JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Info, state = %d.\n", state);
 #else
 
@@ -1576,7 +1576,7 @@ int jrd_voice_core_device_event_handle(void)
         JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Info, g_state = %d.\n", state);
     } else {
         /* For normal calling. */
-        jrd_slic_get_device_state(g_voice_data.slic_dev, &state);
+        jan_slic_get_device_state(g_voice_data.slic_dev, &state);
         JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Info, state = %d.\n", state);
     }
 #endif
@@ -1586,14 +1586,14 @@ int jrd_voice_core_device_event_handle(void)
         case E_JRD_SLIC_DEVICE_ONHOOK:
         {
             /* Clear dtmf queue. */
-            jrd_dtmf_queue.head = 0;
-            jrd_dtmf_queue.tail = 0;
+            jan_dtmf_queue.head = 0;
+            jan_dtmf_queue.tail = 0;
 
             /* For 3rd call wake up after current calling end. */
-            if (jrd_voice_al_get_third_call_state() == E_JRD_VOICE_CALL_STATE_INCOMING) {
+            if (jan_voice_al_get_third_call_state() == E_JRD_VOICE_CALL_STATE_INCOMING) {
                 g_voice_data.curr_status = E_JRD_VOICE_CORE_STATUS_IDLE;
                 g_voice_data.late_status = E_JRD_VOICE_CORE_STATUS_RING;
-                jrd_voice_al_clear_third_call_state();
+                jan_voice_al_clear_third_call_state();
             } else if (g_voice_data.curr_status == E_JRD_VOICE_CORE_STATUS_RING) {
                 /* Nothing to do. For hook change at RING status. */
             } else {
@@ -1622,7 +1622,7 @@ int jrd_voice_core_device_event_handle(void)
                 /* Max call number is 32-1 length. */
                 if (g_voice_data.len < JRD_VOICE_CALL_OUT_NUMBER-1)
                 {
-                    rc = jrd_slic_opt_read_digit(g_voice_data.slic_dev, &g_voice_data.call_num[g_voice_data.len]);
+                    rc = jan_slic_opt_read_digit(g_voice_data.slic_dev, &g_voice_data.call_num[g_voice_data.len]);
                     JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Call_num: %d. len: %d. \n", g_voice_data.call_num[g_voice_data.len], g_voice_data.len+1);
                     if (rc != 0)
                     {
@@ -1639,20 +1639,20 @@ int jrd_voice_core_device_event_handle(void)
             else if (g_voice_data.curr_status = E_JRD_VOICE_CORE_STATUS_CONVERSATION)
             {
                 /* Max dtmf number is 64-1 length. */
-                if (jrd_dtmf_queue.tail < JRD_VOICE_DTMF_NUMBER_LEN-1)
+                if (jan_dtmf_queue.tail < JRD_VOICE_DTMF_NUMBER_LEN-1)
                 {
-                    rc = jrd_slic_opt_read_digit(g_voice_data.slic_dev, &jrd_dtmf_queue.dtmf_num[jrd_dtmf_queue.tail]);
-                    JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"--->>[DTMF]<<--- num: %d. len: %d. \n", jrd_dtmf_queue.dtmf_num[jrd_dtmf_queue.tail], jrd_dtmf_queue.tail+1);
+                    rc = jan_slic_opt_read_digit(g_voice_data.slic_dev, &jan_dtmf_queue.dtmf_num[jan_dtmf_queue.tail]);
+                    JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"--->>[DTMF]<<--- num: %d. len: %d. \n", jan_dtmf_queue.dtmf_num[jan_dtmf_queue.tail], jan_dtmf_queue.tail+1);
                     if (rc != 0)
                     {
                         JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR, "Error, read device digit of dtmf.\n");
                         return JRD_FAIL;
                     }
-                    jrd_dtmf_queue.tail++;
+                    jan_dtmf_queue.tail++;
 #if 1
-                    if (jrd_dtmf_queue.dtmf_num[jrd_dtmf_queue.head])
+                    if (jan_dtmf_queue.dtmf_num[jan_dtmf_queue.head])
                     {
-                        pthread_cond_signal (&jrd_key_signal.cond);
+                        pthread_cond_signal (&jan_key_signal.cond);
                         JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR, "Info, DTMF signal sent >>.\n");
                     }
 #endif
@@ -1672,7 +1672,7 @@ int jrd_voice_core_device_event_handle(void)
     /* Handle voice status. */
     if (g_voice_data.curr_status != g_voice_data.late_status) {
 
-        jrd_voice_core_status_handle(g_voice_data.curr_status, g_voice_data.late_status);
+        jan_voice_core_status_handle(g_voice_data.curr_status, g_voice_data.late_status);
         g_voice_data.curr_status = g_voice_data.late_status;
     }
     return JRD_NO_ERR;
@@ -1680,7 +1680,7 @@ int jrd_voice_core_device_event_handle(void)
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_network_event_handle
+  Function:  jan_voice_core_network_event_handle
 ===========================================================================*/
 /*!
 @brief
@@ -1693,9 +1693,9 @@ int jrd_voice_core_device_event_handle(void)
   None.
 */
 /*=========================================================================*/
-int jrd_voice_core_network_event_handle(jrd_voice_call_info_t *call_info)
+int jan_voice_core_network_event_handle(jan_voice_call_info_t *call_info)
 {
-    jrd_voice_socket_msg_t msg = {0};
+    jan_voice_socket_msg_t msg = {0};
     int result = JRD_FAIL; // -1
     char call_name[64] = {0};
     char call_number[32] = {0};
@@ -1729,25 +1729,25 @@ int jrd_voice_core_network_event_handle(jrd_voice_call_info_t *call_info)
                 msg.sock_opt = E_JRD_VOICE_SOCKET_OPT_SET;
                 JRD_STRCPY(msg.device, JRD_VOICE_SOUNDCARD_VOLTE_DEVICE);
 
-                jrd_voice_connect_send_msg(E_JRD_VOICE_SOCKET_SERVER_TYPE_APLAY, &msg);
-                jrd_voice_connect_send_msg(E_JRD_VOICE_SOCKET_SERVER_TYPE_AREC, &msg);
+                jan_voice_connect_send_msg(E_JRD_VOICE_SOCKET_SERVER_TYPE_APLAY, &msg);
+                jan_voice_connect_send_msg(E_JRD_VOICE_SOCKET_SERVER_TYPE_AREC, &msg);
             } else if ((call_info->call_type == E_JRD_VOICE_CALL_TYPE_VOICE 
                 || call_info->call_type == E_JRD_VOICE_CALL_TYPE_EMERGENCY)) {
                 /* Switch Voice path to CSVoice. */
                 msg.sock_opt = E_JRD_VOICE_SOCKET_OPT_SET;
                 JRD_STRCPY(msg.device, JRD_VOICE_SOUNDCARD_CSVOICE_DEVICE);
 
-                jrd_voice_connect_send_msg(E_JRD_VOICE_SOCKET_SERVER_TYPE_APLAY, &msg);
-                jrd_voice_connect_send_msg(E_JRD_VOICE_SOCKET_SERVER_TYPE_AREC, &msg);
+                jan_voice_connect_send_msg(E_JRD_VOICE_SOCKET_SERVER_TYPE_APLAY, &msg);
+                jan_voice_connect_send_msg(E_JRD_VOICE_SOCKET_SERVER_TYPE_AREC, &msg);
             } else {
                     /* Nothing to do. */
             }
 /*
-            jrd_slic_get_device_state(g_voice_data.slic_dev, &state);
+            jan_slic_get_device_state(g_voice_data.slic_dev, &state);
             JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Info, slic state = %d.\n", state);
             if (state == E_JRD_SLIC_DEVICE_OFFHOOK || state == E_JRD_SLIC_DEVICE_DIGIT)
             {
-                result = jrd_voice_al_call_answer_busy();
+                result = jan_voice_al_call_answer_busy();
             }
 */
             if (g_voice_data.curr_status == E_JRD_VOICE_CORE_STATUS_IDLE)
@@ -1774,16 +1774,16 @@ int jrd_voice_core_network_event_handle(jrd_voice_call_info_t *call_info)
                     msg.sock_opt = E_JRD_VOICE_SOCKET_OPT_SET;
                     JRD_STRCPY(msg.device, JRD_VOICE_SOUNDCARD_VOLTE_DEVICE);
 
-                    jrd_voice_connect_send_msg(E_JRD_VOICE_SOCKET_SERVER_TYPE_APLAY, &msg);
-                    jrd_voice_connect_send_msg(E_JRD_VOICE_SOCKET_SERVER_TYPE_AREC, &msg);
+                    jan_voice_connect_send_msg(E_JRD_VOICE_SOCKET_SERVER_TYPE_APLAY, &msg);
+                    jan_voice_connect_send_msg(E_JRD_VOICE_SOCKET_SERVER_TYPE_AREC, &msg);
                 } else if ((call_info->call_type == E_JRD_VOICE_CALL_TYPE_VOICE
                     || call_info->call_type == E_JRD_VOICE_CALL_TYPE_EMERGENCY)) {
                     /* Switch Voice path to CSVoice. */
                     msg.sock_opt = E_JRD_VOICE_SOCKET_OPT_SET;
                     JRD_STRCPY(msg.device, JRD_VOICE_SOUNDCARD_CSVOICE_DEVICE);
 
-                    jrd_voice_connect_send_msg(E_JRD_VOICE_SOCKET_SERVER_TYPE_APLAY, &msg);
-                    jrd_voice_connect_send_msg(E_JRD_VOICE_SOCKET_SERVER_TYPE_AREC, &msg);
+                    jan_voice_connect_send_msg(E_JRD_VOICE_SOCKET_SERVER_TYPE_APLAY, &msg);
+                    jan_voice_connect_send_msg(E_JRD_VOICE_SOCKET_SERVER_TYPE_AREC, &msg);
                 } else {
                     /* Nothing to do. */
                 }
@@ -1791,17 +1791,17 @@ int jrd_voice_core_network_event_handle(jrd_voice_call_info_t *call_info)
             else {
                 if (g_voice_data.tone_flag < 1) {
                     if (g_voice_data.curr_status == E_JRD_VOICE_CORE_STATUS_CONVERSATION
-                        && jrd_voice_al_get_third_call_state() == E_JRD_VOICE_CALL_STATE_WAITING)
+                        && jan_voice_al_get_third_call_state() == E_JRD_VOICE_CALL_STATE_WAITING)
                     {
                         /* Make sure 3rd tone play only once, because WAITING state occur twice. */
                         g_voice_data.tone_flag++;
-                        jrd_slic_set_tone_osc_time(g_voice_data.slic_dev, 250, 1000);
+                        jan_slic_set_tone_osc_time(g_voice_data.slic_dev, 250, 1000);
                         JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR, "Info, 3rd call tone osc 250ms-1000ms...play!!\n");
 
-                        //jrd_voice_al_call_answer_busy();
+                        //jan_voice_al_call_answer_busy();
 
                         /* Only add record MISSED number once, for 3rd incoming call_number. */
-                        jrd_voice_core_add_record_to_list(E_JRD_VOICE_CORE_CALL_TYPE_MISSED);
+                        jan_voice_core_add_record_to_list(E_JRD_VOICE_CORE_CALL_TYPE_MISSED);
                     }
                 }
             }
@@ -1826,26 +1826,26 @@ int jrd_voice_core_network_event_handle(jrd_voice_call_info_t *call_info)
             JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR, "<DISCONNECTING/END>Info, curr_status=%d, late_status=%d.\n", g_voice_data.curr_status, g_voice_data.late_status);
             #endif
             if (g_voice_data.curr_status == E_JRD_VOICE_CORE_STATUS_CONVERSATION
-                && (jrd_voice_al_get_third_call_state () == E_JRD_VOICE_CALL_STATE_DISCONNECTING
-                    || jrd_voice_al_get_third_call_state () == E_JRD_VOICE_CALL_STATE_END))
+                && (jan_voice_al_get_third_call_state () == E_JRD_VOICE_CALL_STATE_DISCONNECTING
+                    || jan_voice_al_get_third_call_state () == E_JRD_VOICE_CALL_STATE_END))
             {
-                jrd_slic_set_tone_osc_time(g_voice_data.slic_dev, 0, 0);
+                jan_slic_set_tone_osc_time(g_voice_data.slic_dev, 0, 0);
                 /* Clear g_third_call_info state. */
-                jrd_voice_al_clear_third_call_state ();
+                jan_voice_al_clear_third_call_state ();
             }
             else if (g_voice_data.curr_status == E_JRD_VOICE_CORE_STATUS_CONVERSATION)
             {
                 /* For call end playing. */
-                jrd_slic_set_tone_osc_time(g_voice_data.slic_dev, 0, 0);        /* Close 3rd busy tone. */
-                jrd_slic_set_tone_osc_time (g_voice_data.slic_dev, 350, 350);
+                jan_slic_set_tone_osc_time(g_voice_data.slic_dev, 0, 0);        /* Close 3rd busy tone. */
+                jan_slic_set_tone_osc_time (g_voice_data.slic_dev, 350, 350);
             }
             else
             {
-                jrd_slic_opt_pcm(g_voice_data.slic_dev, 1);                /* Enable PCM. */
-                //jrd_voice_al_call_end();                                     /* End Call. */
+                jan_slic_opt_pcm(g_voice_data.slic_dev, 1);                /* Enable PCM. */
+                //jan_voice_al_call_end();                                     /* End Call. */
 
                 /* For specific busy fixed line (such as [Latam] side). */
-                jrd_slic_set_tone_osc_time (g_voice_data.slic_dev, 350, 350);
+                jan_slic_set_tone_osc_time (g_voice_data.slic_dev, 350, 350);
             }
             
             /* Call In, when it's ringing disconnect or call end. */
@@ -1864,7 +1864,7 @@ int jrd_voice_core_network_event_handle(jrd_voice_call_info_t *call_info)
 
     /* Handle voice status. */
     if ((g_voice_data.curr_status != g_voice_data.late_status) && result != JRD_NO_ERR) {
-        jrd_voice_core_status_handle(g_voice_data.curr_status, g_voice_data.late_status);
+        jan_voice_core_status_handle(g_voice_data.curr_status, g_voice_data.late_status);
         g_voice_data.curr_status = g_voice_data.late_status;
     }
     return JRD_NO_ERR;
@@ -1872,7 +1872,7 @@ int jrd_voice_core_network_event_handle(jrd_voice_call_info_t *call_info)
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_opt_ring
+  Function:  jan_voice_core_opt_ring
 ===========================================================================*/
 /*!
 @brief
@@ -1885,14 +1885,14 @@ int jrd_voice_core_network_event_handle(jrd_voice_call_info_t *call_info)
   None.
 */
 /*=========================================================================*/
-void jrd_voice_core_opt_ring(int opt)
+void jan_voice_core_opt_ring(int opt)
 {
-    jrd_slic_opt_ring(g_voice_data.slic_dev, opt);
+    jan_slic_opt_ring(g_voice_data.slic_dev, opt);
 }
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_event_register
+  Function:  jan_voice_core_event_register
 ===========================================================================*/
 /*!
 @brief
@@ -1905,14 +1905,14 @@ void jrd_voice_core_opt_ring(int opt)
   None.
 */
 /*=========================================================================*/
-int jrd_voice_core_event_register(void *callback, void *cb_param)
+int jan_voice_core_event_register(void *callback, void *cb_param)
 {
-    return jrd_voice_al_event_register(callback, cb_param);
+    return jan_voice_al_event_register(callback, cb_param);
 }
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_event_unregister
+  Function:  jan_voice_core_event_unregister
 ===========================================================================*/
 /*!
 @brief
@@ -1925,14 +1925,14 @@ int jrd_voice_core_event_register(void *callback, void *cb_param)
   None.
 */
 /*=========================================================================*/
-int jrd_voice_core_event_unregister(void *callback)
+int jan_voice_core_event_unregister(void *callback)
 {
-    return jrd_voice_al_event_unregister(callback);
+    return jan_voice_al_event_unregister(callback);
 }
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_init
+  Function:  jan_voice_core_init
 ===========================================================================*/
 /*!
 @brief
@@ -1945,17 +1945,17 @@ int jrd_voice_core_event_unregister(void *callback)
   None.
 */
 /*=========================================================================*/
-int jrd_voice_core_init(void)
+int jan_voice_core_init(void)
 {
     int rc = JRD_NO_ERR;
 
-    g_voice_data.slic_dev = jrd_voice_core_create_device();
+    g_voice_data.slic_dev = jan_voice_core_create_device();
     if (!g_voice_data.slic_dev) {
         JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Error, create slic device.\n");
         return JRD_FAIL;
     }
 
-    rc = jrd_voice_al_init();
+    rc = jan_voice_al_init();
     if (rc != JRD_NO_ERR) {
         JRD_OEM_LOG_INFO(JRD_OEM_LOG_ERROR,"Error, register to voice al.\n");
         return JRD_FAIL;
@@ -1967,10 +1967,10 @@ int jrd_voice_core_init(void)
     /* Init Call-Out Timer. */
     g_voice_data.call_timer.ts.tv_sec = JRD_VOICE_CALL_WAIT_TIME; // 15s
     g_voice_data.call_timer.ts.tv_nsec = 0;
-    g_voice_data.call_timer.cb.handler = jrd_voice_core_wait_timeout;
+    g_voice_data.call_timer.cb.handler = jan_voice_core_wait_timeout;
     g_voice_data.call_timer.cb.params = g_voice_data.slic_dev;
 
-    //sighandler_t callout_timeout_handler = jrd_voice_core_timeout_busy_tone;
+    //sighandler_t callout_timeout_handler = jan_voice_core_timeout_busy_tone;
     //signal (SIGALRM, callout_timeout_handler);
 
     /* Init list. */
@@ -1987,11 +1987,11 @@ int jrd_voice_core_init(void)
     g_voice_data.count_info.missed_count = 0;
 
     /* Init dtmf queue. */
-    jrd_dtmf_queue.head = 0;
-    jrd_dtmf_queue.tail = 0;
+    jan_dtmf_queue.head = 0;
+    jan_dtmf_queue.tail = 0;
 
     /* Init call back function, that init data form datastore. */
-    jrd_voice_datastore_init(jrd_voice_core_init_record_form_datastore);
+    jan_voice_datastore_init(jan_voice_core_init_record_form_datastore);
 
     return JRD_NO_ERR;
 }

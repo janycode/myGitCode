@@ -9,8 +9,8 @@
   None.
 
   ---------------------------------------------------------------------------
-  Copyright (c) 2012-2015 jrd Incorporated.
-  All Rights Reserved. jrd Proprietary and Confidential.
+  Copyright (c) 2012-2015 jan Incorporated.
+  All Rights Reserved. jan Proprietary and Confidential.
   ---------------------------------------------------------------------------
 ******************************************************************************/
 
@@ -36,8 +36,8 @@ void change_time_to_string_for_EE(char* des_time,uint32 time_span);
 void change_time_to_string_for_usa(char* des_time,uint32 time_span);
 void change_time_to_string_for_general(char* des_time,uint32 time_span);
 uint32 change_time_to_sms_span(char * time_str);
-void   jrd_qmi_timestamp_to_secs( wms_timestamp_s_type  time, uint32 *time_stick);
-void   jrd_qmi_secs_to_timestamp( uint32 time_stick, wms_timestamp_s_type  *time);
+void   jan_qmi_timestamp_to_secs( wms_timestamp_s_type  time, uint32 *time_stick);
+void   jan_qmi_secs_to_timestamp( uint32 time_stick, wms_timestamp_s_type  *time);
 #endif /* _h_TIME */
 
 /******************************************************************************/

@@ -14,10 +14,10 @@
 #include <signal.h>
 #include <pthread.h>
 
-#include "jrd_voice.h"
-#include "jrd_voice_al.h"
-#include "jrd_voice_soundcard.h"
-#include "jrd_voice_connect.h"
+#include "jan_voice.h"
+#include "jan_voice_al.h"
+#include "jan_voice_soundcard.h"
+#include "jan_voice_connect.h"
 
 /*---------------------------------------------------------------------------*/
 
@@ -26,7 +26,7 @@ typedef enum {
     E_JRD_VOICE_CORE_CALL_TYPE_INCOMING = 1,
     E_JRD_VOICE_CORE_CALL_TYPE_OUTGOING = 2,
     E_JRD_VOICE_CORE_CALL_TYPE_MISSED = 3,
-} e_jrd_voice_core_call_type_t;
+} e_jan_voice_core_call_type_t;
 
 typedef enum {
     E_JRD_VOICE_CORE_STATUS_IDLE = 0,
@@ -36,52 +36,52 @@ typedef enum {
     E_JRD_VOICE_CORE_STATUS_ALERTING,
     E_JRD_VOICE_CORE_STATUS_CONVERSATION,
     E_JRD_VOICE_CORE_STATUS_MAX,
-} e_jrd_voice_core_status_t;
+} e_jan_voice_core_status_t;
 
 typedef enum {
     E_JRD_VOICE_CORE_MSG_INVALID = -1,
     E_JRD_VOICE_CORE_MSG_FROM_NETWORK,
     E_JRD_VOICE_CORE_MSG_FROM_DEVICE,
     E_JRD_VOICE_CORE_MSG_MAX,
-} e_jrd_voice_core_msg_t;
+} e_jan_voice_core_msg_t;
 
 typedef enum {
     E_JRD_VOICE_LIST_TYPE_ALL = 0,
     E_JRD_VOICE_LIST_TYPE_INCOMING,
     E_JRD_VOICE_LIST_TYPE_OUTGOING,
     E_JRD_VOICE_LIST_TYPE_MISSED,
-} e_jrd_voice_list_type_t;
+} e_jan_voice_list_type_t;
 
 typedef enum {
     E_JRD_VOICE_DIAL_TYPE_INVALID = -1,
     E_JRD_VOICE_DIAL_TYPE_EMERGENCY = 0,
     E_JRD_VOICE_DIAL_TYPE_NORMAL = 1,
-} e_jrd_voice_dial_type_t;
+} e_jan_voice_dial_type_t;
 
 /*---------------------------------------------------------------------------*/
 
-typedef struct jrd_voice_call_record_count_info_struct {
+typedef struct jan_voice_call_record_count_info_struct {
     int max_count;
     int incoming_count;
     int outgoing_count;
     int missed_count;
     int total_count;
-} jrd_voice_call_record_count_info_t;
+} jan_voice_call_record_count_info_t;
 
-typedef struct jrd_voice_call_record_struct {
+typedef struct jan_voice_call_record_struct {
     unsigned int id;
     char *contacts;
     char contact_number[32];
 
     time_t call_date;
     int call_duration;
-    e_jrd_voice_core_call_type_t call_type;
-} jrd_voice_call_record_t;
+    e_jan_voice_core_call_type_t call_type;
+} jan_voice_call_record_t;
 
-typedef struct jrd_voice_node_list_struct {
+typedef struct jan_voice_node_list_struct {
     ordered_list_link_type link;
     void *data;
-} jrd_voice_node_list_t;
+} jan_voice_node_list_t;
 
 /*---------------------------------------------------------------------------*/
 
@@ -90,7 +90,7 @@ extern "C" {
 #endif
 
 /*===========================================================================
-  Function:  jrd_voice_core_msg_handle
+  Function:  jan_voice_core_msg_handle
 ===========================================================================*/
 /*!
 @brief
@@ -103,11 +103,11 @@ extern "C" {
   None.
 */
 /*=========================================================================*/
-extern int jrd_voice_core_msg_handle(e_jrd_voice_core_msg_t msg_type, jrd_voice_call_info_t *call_info);
+extern int jan_voice_core_msg_handle(e_jan_voice_core_msg_t msg_type, jan_voice_call_info_t *call_info);
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_get_record_list
+  Function:  jan_voice_core_get_record_list
 ===========================================================================*/
 /*!
 @brief
@@ -120,11 +120,11 @@ extern int jrd_voice_core_msg_handle(e_jrd_voice_core_msg_t msg_type, jrd_voice_
   None.
 */
 /*=========================================================================*/
-ordered_list_type* jrd_voice_core_get_record_list(e_jrd_voice_list_type_t page_type);
+ordered_list_type* jan_voice_core_get_record_list(e_jan_voice_list_type_t page_type);
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_delete_record_id
+  Function:  jan_voice_core_delete_record_id
 ===========================================================================*/
 /*!
 @brief
@@ -137,11 +137,11 @@ ordered_list_type* jrd_voice_core_get_record_list(e_jrd_voice_list_type_t page_t
   None.
 */
 /*=========================================================================*/
-extern int jrd_voice_core_delete_record_id(int list_type, int record_id);
+extern int jan_voice_core_delete_record_id(int list_type, int record_id);
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_clear_record_list
+  Function:  jan_voice_core_clear_record_list
 ===========================================================================*/
 /*!
 @brief
@@ -154,11 +154,11 @@ extern int jrd_voice_core_delete_record_id(int list_type, int record_id);
   None.
 */
 /*=========================================================================*/
-extern int jrd_voice_core_clear_record_list(ordered_list_type *record_list);
+extern int jan_voice_core_clear_record_list(ordered_list_type *record_list);
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_delete_record_from_list
+  Function:  jan_voice_core_delete_record_from_list
 ===========================================================================*/
 /*!
 @brief
@@ -171,11 +171,11 @@ extern int jrd_voice_core_clear_record_list(ordered_list_type *record_list);
   None.
 */
 /*=========================================================================*/
-static int jrd_voice_core_delete_record_from_list(ordered_list_type *list, int id);
+static int jan_voice_core_delete_record_from_list(ordered_list_type *list, int id);
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_get_record_count_info
+  Function:  jan_voice_core_get_record_count_info
 ===========================================================================*/
 /*!
 @brief
@@ -188,11 +188,11 @@ static int jrd_voice_core_delete_record_from_list(ordered_list_type *list, int i
   None.
 */
 /*=========================================================================*/
-jrd_voice_call_record_count_info_t* jrd_voice_core_get_record_count_info(void);
+jan_voice_call_record_count_info_t* jan_voice_core_get_record_count_info(void);
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_opt_ring
+  Function:  jan_voice_core_opt_ring
 ===========================================================================*/
 /*!
 @brief
@@ -205,11 +205,11 @@ jrd_voice_call_record_count_info_t* jrd_voice_core_get_record_count_info(void);
   None.
 */
 /*=========================================================================*/
-extern void jrd_voice_core_opt_ring(int opt);
+extern void jan_voice_core_opt_ring(int opt);
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_event_register
+  Function:  jan_voice_core_event_register
 ===========================================================================*/
 /*!
 @brief
@@ -222,11 +222,11 @@ extern void jrd_voice_core_opt_ring(int opt);
   None.
 */
 /*=========================================================================*/
-extern int jrd_voice_core_event_register(void *callback, void *cb_param);
+extern int jan_voice_core_event_register(void *callback, void *cb_param);
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_event_unregister
+  Function:  jan_voice_core_event_unregister
 ===========================================================================*/
 /*!
 @brief
@@ -239,11 +239,11 @@ extern int jrd_voice_core_event_register(void *callback, void *cb_param);
   None.
 */
 /*=========================================================================*/
-extern int jrd_voice_core_event_unregister(void *callback);
+extern int jan_voice_core_event_unregister(void *callback);
 
 
 /*===========================================================================
-  Function:  jrd_voice_core_init
+  Function:  jan_voice_core_init
 ===========================================================================*/
 /*!
 @brief
@@ -256,7 +256,7 @@ extern int jrd_voice_core_event_unregister(void *callback);
   None.
 */
 /*=========================================================================*/
-extern int jrd_voice_core_init(void);
+extern int jan_voice_core_init(void);
 
 #ifdef __cplusplus
 }

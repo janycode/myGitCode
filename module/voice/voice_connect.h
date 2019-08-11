@@ -11,11 +11,11 @@
 #ifndef _JRD_VOICE_CONNECT_H_
 #define _JRD_VOICE_CONNECT_H_
 
-#include "jrd_voice_socket.h"
+#include "jan_voice_socket.h"
 
 
 /*===========================================================================
-  Function:  jrd_voice_connect_send_msg
+  Function:  jan_voice_connect_send_msg
 ===========================================================================*/
 /*!
 @brief
@@ -28,7 +28,7 @@
   None.
 */
 /*=========================================================================*/
-extern int jrd_voice_connect_send_msg(e_jrd_voice_socket_server_type_t server_type, jrd_voice_socket_msg_t *msg);
+extern int jan_voice_connect_send_msg(e_jan_voice_socket_server_type_t server_type, jan_voice_socket_msg_t *msg);
 
 
 #endif /* _JRD_VOICE_CONNECT_H_ */

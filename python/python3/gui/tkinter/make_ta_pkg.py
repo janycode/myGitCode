@@ -238,7 +238,7 @@ def zipCompress(srcDir, desZipfile):
 
 def add_simlock_config(version_path, package_name):
     print ("\n>>> Add_simlock_config") 
-    db_file = version_path + r"\FotaImage\jrd_resource\resource\sqlite3\factory_info.db3"
+    db_file = version_path + r"\FotaImage\jan_resource\resource\sqlite3\factory_info.db3"
     print ("db_file: {}".format(db_file))
     db = sqlite3.connect (db_file)
 

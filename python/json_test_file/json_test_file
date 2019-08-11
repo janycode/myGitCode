@@ -424,16 +424,16 @@
 ;
 { "req": "trance_file", "info": [ { "module": 10, "act": 9, "id": [ ] } ] }
 ;
-{ "req": "jrd_diag_led_handle", "info": [ { "module": 10, "act": 10, "id": [ ] } ] }
+{ "req": "jan_diag_led_handle", "info": [ { "module": 10, "act": 10, "id": [ ] } ] }
 ;
-{ "req": "jrd_reset_key_ind", "info": [ { "module": 10, "act": 11, "id": [ ] } ] }
+{ "req": "jan_reset_key_ind", "info": [ { "module": 10, "act": 11, "id": [ ] } ] }
 ;
 
 { "req": "setLedTestmode", "info": [ { "module": 9, "act": 11, "id": [ ] } ] }
 ;
 { "req": "setKeyTestmode", "info": [ { "module": 9, "act": 12, "id": [ ] } ] }
 ;
-{ "req": "jrd_syn_trace", "info": [ { "module": 10, "act": 12, "id": [ ] } ] }
+{ "req": "jan_syn_trace", "info": [ { "module": 10, "act": 12, "id": [ ] } ] }
 ;
 { "req": "ethWanStatus", "info": [ { "module": 9, "act": 13, "id": [ ] } ] }
 ;

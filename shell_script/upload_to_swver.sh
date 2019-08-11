@@ -9,7 +9,7 @@ Main_board="main"
 function help ()
 {
 	echo -e "\nUsage: $0 -<opts> <customID> <project name> [Mainboard pathname]"
-	echo -e "Notice: Make sure current path at \"<Smallboard path>/jrd_oem$\""
+	echo -e "Notice: Make sure current path at \"<Smallboard path>/jan_oem$\""
 	echo -e "Default: Mainboard pathname = QCA9531"
 	echo -e "Description: This shell script must be used after version Self-test completion\n"
 	echo "Opts:"
@@ -56,7 +56,7 @@ function get_ready_to_update ()
 	if [ $1 = $Small_board ]; then
 		release_dir=$Small_board_path"/release_history"
 		release_history_txt=$release_dir"/release_history.txt"
-		board_version_info_file=$Small_board_path"/jrd_resource_dir/jrd-resource/resource/jrdcfg/jrd_version"
+		board_version_info_file=$Small_board_path"/jan_resource_dir/jan-resource/resource/jancfg/jan_version"
 		gerrit_push_py=$Small_board_path"/gerrit-push.py"
 		cd $Small_board_path
 	elif [ $1 = $Main_board ]; then
@@ -245,7 +245,7 @@ else
 fi
 
 Small_board_path=${PWD}
-Main_board_path=$(dirname $(dirname ${PWD}))"/"$main_board_path_name"/jrd_oem"
+Main_board_path=$(dirname $(dirname ${PWD}))"/"$main_board_path_name"/jan_oem"
 
 get_custom_name_from_compile_info $customID
 
